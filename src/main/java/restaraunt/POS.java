@@ -20,14 +20,8 @@ public class POS extends javax.swing.JFrame {
         initComponents();
     }
     
-    double ids[] = {1289, 1863, 8246, 7979};//stores an array of acceptable id numbers for login
+    double ids[] = {1289, 1863, 8246, 7979};            //stores an array of acceptable id numbers for login
 
-   
-    
-    
-    
-    
-    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -53,17 +47,6 @@ public class POS extends javax.swing.JFrame {
         btnZero = new javax.swing.JButton();
         btnOk = new javax.swing.JButton();
         input = new javax.swing.JTextField();
-        Tables = new javax.swing.JPanel();
-        tbl10 = new javax.swing.JButton();
-        tbl20 = new javax.swing.JButton();
-        tbl30 = new javax.swing.JButton();
-        tbl40 = new javax.swing.JButton();
-        tbl50 = new javax.swing.JButton();
-        tbl60 = new javax.swing.JButton();
-        tbl61 = new javax.swing.JButton();
-        newTable = new javax.swing.JButton();
-        report = new javax.swing.JButton();
-        exitTables = new javax.swing.JButton();
         Order = new javax.swing.JPanel();
         dynamicPanel = new javax.swing.JPanel();
         orderPanel = new javax.swing.JPanel();
@@ -87,11 +70,15 @@ public class POS extends javax.swing.JFrame {
         drinks = new javax.swing.JPanel();
         drinkList = new javax.swing.JScrollPane();
         jList7 = new javax.swing.JList<>();
-        s1 = new javax.swing.JButton();
-        s2 = new javax.swing.JButton();
-        s3 = new javax.swing.JButton();
-        s4 = new javax.swing.JButton();
-        ns = new javax.swing.JButton();
+        allergies = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList8 = new javax.swing.JList<>();
+        upcharge = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList9 = new javax.swing.JList<>();
+        noUpcharge = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jList10 = new javax.swing.JList<>();
         btnApps = new javax.swing.JButton();
         btnSalad = new javax.swing.JButton();
         btnSandwich = new javax.swing.JButton();
@@ -106,13 +93,23 @@ public class POS extends javax.swing.JFrame {
         btnAllergy = new javax.swing.JButton();
         btnVoid = new javax.swing.JButton();
         btnOrder = new javax.swing.JButton();
+        s1 = new javax.swing.JToggleButton();
+        s2 = new javax.swing.JToggleButton();
+        s3 = new javax.swing.JToggleButton();
+        s4 = new javax.swing.JToggleButton();
+        Tables = new javax.swing.JPanel();
+        tbl10 = new javax.swing.JButton();
+        tbl20 = new javax.swing.JButton();
+        tbl30 = new javax.swing.JButton();
+        tbl40 = new javax.swing.JButton();
+        tbl50 = new javax.swing.JButton();
+        tbl60 = new javax.swing.JButton();
+        tbl61 = new javax.swing.JButton();
+        newTable = new javax.swing.JButton();
+        report = new javax.swing.JButton();
+        exitTables = new javax.swing.JButton();
         Payment = new javax.swing.JPanel();
         seatPayment = new javax.swing.JPanel();
-        seatOne = new javax.swing.JButton();
-        seatTwo = new javax.swing.JButton();
-        seatThree = new javax.swing.JButton();
-        seatFour = new javax.swing.JButton();
-        nextSeat = new javax.swing.JButton();
         Pay = new javax.swing.JPanel();
         emptyCash = new javax.swing.JPanel();
         creditCard = new javax.swing.JPanel();
@@ -132,10 +129,14 @@ public class POS extends javax.swing.JFrame {
         btnCard = new javax.swing.JButton();
         btnCash = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
+        seat1 = new javax.swing.JToggleButton();
+        seat2 = new javax.swing.JToggleButton();
+        seat3 = new javax.swing.JToggleButton();
+        seat4 = new javax.swing.JToggleButton();
+        allSeat = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("POS"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(1200, 750));
 
         mainPanel.setPreferredSize(new java.awt.Dimension(1300, 750));
         mainPanel.setLayout(new java.awt.CardLayout());
@@ -250,9 +251,361 @@ public class POS extends javax.swing.JFrame {
             }
         });
         login.add(btnOk, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 460, -1, -1));
-        login.add(input, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 200, 190, 30));
+        login.add(input, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 200, 200, 30));
 
         mainPanel.add(login, "card5");
+
+        Order.setPreferredSize(new java.awt.Dimension(1300, 750));
+        Order.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        dynamicPanel.setBackground(new java.awt.Color(0, 204, 0));
+        dynamicPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 102, 51), new java.awt.Color(51, 51, 51)));
+        dynamicPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        dynamicPanel.setLayout(new java.awt.CardLayout());
+
+        currentOrder.setViewportView(jList1);
+
+        javax.swing.GroupLayout orderPanelLayout = new javax.swing.GroupLayout(orderPanel);
+        orderPanel.setLayout(orderPanelLayout);
+        orderPanelLayout.setHorizontalGroup(
+            orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(orderPanelLayout.createSequentialGroup()
+                .addGap(690, 690, 690)
+                .addComponent(currentOrder, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE))
+        );
+        orderPanelLayout.setVerticalGroup(
+            orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(currentOrder, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
+        );
+
+        dynamicPanel.add(orderPanel, "card8");
+
+        jList2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Hot Wings\t\t\t\t\t$9.99", " ", "Southwest Chicken Spring Rolls\t\t\t$9.99", " ", "Nachos\t\t\t\t\t$9.99", " ", "Fried Pickles\t\t\t\t\t$7.99", " ", "Chips & Salsa\t\t\t\t\t$3.99", " ", " " };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        appList.setViewportView(jList2);
+
+        javax.swing.GroupLayout appetizersLayout = new javax.swing.GroupLayout(appetizers);
+        appetizers.setLayout(appetizersLayout);
+        appetizersLayout.setHorizontalGroup(
+            appetizersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(appList, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+        );
+        appetizersLayout.setVerticalGroup(
+            appetizersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(appList, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+        );
+
+        dynamicPanel.add(appetizers, "card7");
+
+        jList3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jList3.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Cobb Salad\t\t\t\t\t$12.99", " ", "Chef Salad\t\t\t\t\t$12.99", " ", "Grilled Chicken Salad\t\t\t\t$14.99", " ", "Steak Salad\t\t\t\t\t$14.99" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        saladList.setViewportView(jList3);
+
+        javax.swing.GroupLayout saladsLayout = new javax.swing.GroupLayout(salads);
+        salads.setLayout(saladsLayout);
+        saladsLayout.setHorizontalGroup(
+            saladsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(saladList, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+        );
+        saladsLayout.setVerticalGroup(
+            saladsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(saladList, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+        );
+
+        dynamicPanel.add(salads, "card6");
+
+        jList4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jList4.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "French Dip\t\t\t\t\t$9.99", " ", "Tuna Melt\t\t\t\t\t$10.99", " ", "Steak Sandwich\t\t\t\t$14.99", " ", "Club Sandwich\t\t\t\t\t$10.99", " ", "Chicken Sandwich\t\t\t\t$9.99", " ", "Cheese Burger\t\t\t\t\t$9.99", " ", "BBQ Burger\t\t\t\t\t$10.99", " ", "Black Bean Burger\t\t\t\t$8.99" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        sandList.setViewportView(jList4);
+
+        javax.swing.GroupLayout sandwichesLayout = new javax.swing.GroupLayout(sandwiches);
+        sandwiches.setLayout(sandwichesLayout);
+        sandwichesLayout.setHorizontalGroup(
+            sandwichesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(sandList, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+        );
+        sandwichesLayout.setVerticalGroup(
+            sandwichesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(sandList, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+        );
+
+        dynamicPanel.add(sandwiches, "card5");
+
+        jList5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jList5.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Spaghetti & Meatballs\t\t\t\t$10.99", " ", "Blackened Salmon\t\t\t\t$14.99", " ", "New York Strip\t\t\t\t\t$17.99", " ", "Ribeye\t\t\t\t\t$19.99", " ", "Fried Chicken\t\t\t\t\t$14.99", " ", "Charred Chicken Burrito\t\t\t\t$12.99", " ", "Lentil Marsala and Rice\t\t\t\t$9.99" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        entreeList.setViewportView(jList5);
+
+        javax.swing.GroupLayout entreesLayout = new javax.swing.GroupLayout(entrees);
+        entrees.setLayout(entreesLayout);
+        entreesLayout.setHorizontalGroup(
+            entreesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(entreeList, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+        );
+        entreesLayout.setVerticalGroup(
+            entreesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(entreeList, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+        );
+
+        dynamicPanel.add(entrees, "card4");
+
+        jList6.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jList6.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Molten Lava Cake\t\t\t\t$8.99", " ", "Cheesecake\t\t\t\t\t$6.99", " ", "Pie ala Mode\t\t\t\t\t$6.99", " ", "Espresso\t\t\t\t\t$2.99" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        dessertList.setViewportView(jList6);
+
+        javax.swing.GroupLayout dessertsLayout = new javax.swing.GroupLayout(desserts);
+        desserts.setLayout(dessertsLayout);
+        dessertsLayout.setHorizontalGroup(
+            dessertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(dessertList, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+        );
+        dessertsLayout.setVerticalGroup(
+            dessertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(dessertList, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+        );
+
+        dynamicPanel.add(desserts, "card3");
+
+        jList7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jList7.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Domestic Beer Btl\t\t\t\t$3.99", " ", "Import Beer Btl\t\t\t\t\t$4.99", " ", "Draft Beer\t\t\t\t\t$5.00", " ", "Glass Wine\t\t\t\t\t$6.00", " ", "Fountain Soda\t\t\t\t\t$2.99", " ", "Iced Tea\t\t\t\t\t$2.99" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        drinkList.setViewportView(jList7);
+
+        javax.swing.GroupLayout drinksLayout = new javax.swing.GroupLayout(drinks);
+        drinks.setLayout(drinksLayout);
+        drinksLayout.setHorizontalGroup(
+            drinksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(drinkList, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+        );
+        drinksLayout.setVerticalGroup(
+            drinksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(drinkList, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+        );
+
+        dynamicPanel.add(drinks, "card2");
+
+        jList8.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jList8.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "!PEANUT!", "!GLUTEN!", "!ONION!", "!GARLIC!", "!DAIRY!" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jList8);
+
+        javax.swing.GroupLayout allergiesLayout = new javax.swing.GroupLayout(allergies);
+        allergies.setLayout(allergiesLayout);
+        allergiesLayout.setHorizontalGroup(
+            allergiesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
+        );
+        allergiesLayout.setVerticalGroup(
+            allergiesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
+        );
+
+        dynamicPanel.add(allergies, "card11");
+
+        jList9.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jList9.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "$Bacon", "$Extra Meat", "$Extra Side", "$Double" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(jList9);
+
+        javax.swing.GroupLayout upchargeLayout = new javax.swing.GroupLayout(upcharge);
+        upcharge.setLayout(upchargeLayout);
+        upchargeLayout.setHorizontalGroup(
+            upchargeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
+        );
+        upchargeLayout.setVerticalGroup(
+            upchargeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
+        );
+
+        dynamicPanel.add(upcharge, "card10");
+
+        jList10.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jList10.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "No Cheese", "Rare", "Medium Rare", "Medium", "Medium Well", "Well", "No Onion", "No Tomato", "No Mayo", " " };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane3.setViewportView(jList10);
+
+        javax.swing.GroupLayout noUpchargeLayout = new javax.swing.GroupLayout(noUpcharge);
+        noUpcharge.setLayout(noUpchargeLayout);
+        noUpchargeLayout.setHorizontalGroup(
+            noUpchargeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
+        );
+        noUpchargeLayout.setVerticalGroup(
+            noUpchargeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
+        );
+
+        dynamicPanel.add(noUpcharge, "card9");
+
+        Order.add(dynamicPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 690, 550));
+
+        btnApps.setText("Appetizers");
+        btnApps.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAppsActionPerformed(evt);
+            }
+        });
+        Order.add(btnApps, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 20, 170, 50));
+
+        btnSalad.setText("Salads");
+        btnSalad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaladActionPerformed(evt);
+            }
+        });
+        Order.add(btnSalad, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 100, 170, 50));
+
+        btnSandwich.setText("Sandwiches");
+        btnSandwich.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSandwichActionPerformed(evt);
+            }
+        });
+        Order.add(btnSandwich, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 180, 170, 50));
+
+        btnEntree.setText("Entrees");
+        btnEntree.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEntreeActionPerformed(evt);
+            }
+        });
+        Order.add(btnEntree, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 260, 170, 50));
+
+        btnDessert.setText("Desserts");
+        btnDessert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDessertActionPerformed(evt);
+            }
+        });
+        Order.add(btnDessert, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 340, 170, 50));
+
+        btnDrinks.setText("Drinks");
+        btnDrinks.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDrinksActionPerformed(evt);
+            }
+        });
+        Order.add(btnDrinks, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 420, 170, 50));
+
+        btnAdd.setText("Add");
+        Order.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 220, 170, 50));
+
+        btnPay.setText("Payment");
+        btnPay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPayActionPerformed(evt);
+            }
+        });
+        Order.add(btnPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 500, 170, 50));
+
+        btnSend.setText("Send/Exit");
+        btnSend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSendActionPerformed(evt);
+            }
+        });
+        Order.add(btnSend, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 580, 170, 50));
+
+        btnAddNoCharge.setText("Add");
+        btnAddNoCharge.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddNoChargeActionPerformed(evt);
+            }
+        });
+        Order.add(btnAddNoCharge, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 640, 170, 60));
+
+        btnAddCharge.setText("$Add");
+        btnAddCharge.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddChargeActionPerformed(evt);
+            }
+        });
+        Order.add(btnAddCharge, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 640, 170, 60));
+
+        btnAllergy.setText("!ALLERGY!");
+        btnAllergy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAllergyActionPerformed(evt);
+            }
+        });
+        Order.add(btnAllergy, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 640, 170, 60));
+
+        btnVoid.setText("Void");
+        Order.add(btnVoid, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 290, 170, 50));
+
+        btnOrder.setText("Order");
+        btnOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrderActionPerformed(evt);
+            }
+        });
+        Order.add(btnOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 150, 170, 50));
+
+        s1.setText("Seat 1");
+        s1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                s1ActionPerformed(evt);
+            }
+        });
+        Order.add(s1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+
+        s2.setText("Seat 2");
+        s2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                s2ActionPerformed(evt);
+            }
+        });
+        Order.add(s2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
+
+        s3.setText("Seat 3");
+        s3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                s3ActionPerformed(evt);
+            }
+        });
+        Order.add(s3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, -1, -1));
+
+        s4.setText("Seat 4");
+        s4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                s4ActionPerformed(evt);
+            }
+        });
+        Order.add(s4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, -1, -1));
+
+        mainPanel.add(Order, "order");
 
         Tables.setPreferredSize(new java.awt.Dimension(1300, 750));
         Tables.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -340,256 +693,6 @@ public class POS extends javax.swing.JFrame {
 
         mainPanel.add(Tables, "tables");
 
-        Order.setPreferredSize(new java.awt.Dimension(1300, 750));
-        Order.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        dynamicPanel.setBackground(new java.awt.Color(0, 204, 0));
-        dynamicPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 102, 51), new java.awt.Color(51, 51, 51)));
-        dynamicPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        dynamicPanel.setLayout(new java.awt.CardLayout());
-
-        currentOrder.setViewportView(jList1);
-
-        javax.swing.GroupLayout orderPanelLayout = new javax.swing.GroupLayout(orderPanel);
-        orderPanel.setLayout(orderPanelLayout);
-        orderPanelLayout.setHorizontalGroup(
-            orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(currentOrder, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
-        );
-        orderPanelLayout.setVerticalGroup(
-            orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(currentOrder, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
-        );
-
-        dynamicPanel.add(orderPanel, "card8");
-
-        jList2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Hot Wings\t\t\t\t\t$9.99", " ", "Southwest Chicken Spring Rolls\t\t\t$9.99", " ", "Nachos\t\t\t\t\t$9.99", " ", "Fried Pickles\t\t\t\t\t$7.99", " ", "Chips & Salsa\t\t\t\t\t$3.99", " ", " " };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        appList.setViewportView(jList2);
-
-        javax.swing.GroupLayout appetizersLayout = new javax.swing.GroupLayout(appetizers);
-        appetizers.setLayout(appetizersLayout);
-        appetizersLayout.setHorizontalGroup(
-            appetizersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(appList, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
-        );
-        appetizersLayout.setVerticalGroup(
-            appetizersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(appList, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
-        );
-
-        dynamicPanel.add(appetizers, "card7");
-
-        jList3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jList3.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Cobb Salad\t\t\t\t\t$12.99", " ", "Chef Salad\t\t\t\t\t$12.99", " ", "Grilled Chicken Salad\t\t\t\t$14.99", " ", "Steak Salad\t\t\t\t\t$14.99" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        saladList.setViewportView(jList3);
-
-        javax.swing.GroupLayout saladsLayout = new javax.swing.GroupLayout(salads);
-        salads.setLayout(saladsLayout);
-        saladsLayout.setHorizontalGroup(
-            saladsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(saladList, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
-        );
-        saladsLayout.setVerticalGroup(
-            saladsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(saladList, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
-        );
-
-        dynamicPanel.add(salads, "card6");
-
-        jList4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jList4.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "French Dip\t\t\t\t\t$9.99", " ", "Tuna Melt\t\t\t\t\t$10.99", " ", "Steak Sandwich\t\t\t\t$14.99", " ", "Club Sandwich\t\t\t\t\t$10.99", " ", "Chicken Sandwich\t\t\t\t$9.99", " ", "Cheese Burger\t\t\t\t\t$9.99", " ", "BBQ Burger\t\t\t\t\t$10.99", " ", "Black Bean Burger\t\t\t\t$8.99" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        sandList.setViewportView(jList4);
-
-        javax.swing.GroupLayout sandwichesLayout = new javax.swing.GroupLayout(sandwiches);
-        sandwiches.setLayout(sandwichesLayout);
-        sandwichesLayout.setHorizontalGroup(
-            sandwichesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sandList, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
-        );
-        sandwichesLayout.setVerticalGroup(
-            sandwichesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sandList, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
-        );
-
-        dynamicPanel.add(sandwiches, "card5");
-
-        jList5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jList5.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Spaghetti & Meatballs\t\t\t\t$10.99", " ", "Blackened Salmon\t\t\t\t$14.99", " ", "New York Strip\t\t\t\t\t$17.99", " ", "Ribeye\t\t\t\t\t$19.99", " ", "Fried Chicken\t\t\t\t\t$14.99", " ", "Charred Chicken Burrito\t\t\t\t$12.99", " ", "Lentil Marsala and Rice\t\t\t\t$9.99" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        entreeList.setViewportView(jList5);
-
-        javax.swing.GroupLayout entreesLayout = new javax.swing.GroupLayout(entrees);
-        entrees.setLayout(entreesLayout);
-        entreesLayout.setHorizontalGroup(
-            entreesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(entreeList, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
-        );
-        entreesLayout.setVerticalGroup(
-            entreesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(entreeList, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
-        );
-
-        dynamicPanel.add(entrees, "card4");
-
-        jList6.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jList6.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Molten Lava Cake\t\t\t\t$8.99", " ", "Cheesecake\t\t\t\t\t$6.99", " ", "Pie ala Mode\t\t\t\t\t$6.99", " ", "Espresso\t\t\t\t\t$2.99" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        dessertList.setViewportView(jList6);
-
-        javax.swing.GroupLayout dessertsLayout = new javax.swing.GroupLayout(desserts);
-        desserts.setLayout(dessertsLayout);
-        dessertsLayout.setHorizontalGroup(
-            dessertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dessertList, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
-        );
-        dessertsLayout.setVerticalGroup(
-            dessertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dessertList, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
-        );
-
-        dynamicPanel.add(desserts, "card3");
-
-        jList7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jList7.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Domestic Beer Btl\t\t\t\t$3.99", " ", "Import Beer Btl\t\t\t\t\t$4.99", " ", "Draft Beer\t\t\t\t\t$5.00", " ", "Glass Wine\t\t\t\t\t$6.00", " ", "Fountain Soda\t\t\t\t\t$2.99", " ", "Iced Tea\t\t\t\t\t$2.99" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        drinkList.setViewportView(jList7);
-
-        javax.swing.GroupLayout drinksLayout = new javax.swing.GroupLayout(drinks);
-        drinks.setLayout(drinksLayout);
-        drinksLayout.setHorizontalGroup(
-            drinksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(drinkList, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
-        );
-        drinksLayout.setVerticalGroup(
-            drinksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(drinkList, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
-        );
-
-        dynamicPanel.add(drinks, "card2");
-
-        Order.add(dynamicPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 690, 550));
-
-        s1.setText("Seat 1");
-        Order.add(s1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 110, 30));
-
-        s2.setText("Seat 2");
-        Order.add(s2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 110, 30));
-
-        s3.setText("Seat 3");
-        Order.add(s3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, 110, 30));
-
-        s4.setText("Seat 4");
-        Order.add(s4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, 110, 30));
-
-        ns.setText("Next Seat");
-        Order.add(ns, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 110, 30));
-
-        btnApps.setText("Appetizers");
-        btnApps.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAppsActionPerformed(evt);
-            }
-        });
-        Order.add(btnApps, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 20, 170, 50));
-
-        btnSalad.setText("Salads");
-        btnSalad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaladActionPerformed(evt);
-            }
-        });
-        Order.add(btnSalad, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 100, 170, 50));
-
-        btnSandwich.setText("Sandwiches");
-        btnSandwich.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSandwichActionPerformed(evt);
-            }
-        });
-        Order.add(btnSandwich, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 180, 170, 50));
-
-        btnEntree.setText("Entrees");
-        btnEntree.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEntreeActionPerformed(evt);
-            }
-        });
-        Order.add(btnEntree, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 260, 170, 50));
-
-        btnDessert.setText("Desserts");
-        btnDessert.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDessertActionPerformed(evt);
-            }
-        });
-        Order.add(btnDessert, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 340, 170, 50));
-
-        btnDrinks.setText("Drinks");
-        btnDrinks.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDrinksActionPerformed(evt);
-            }
-        });
-        Order.add(btnDrinks, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 420, 170, 50));
-
-        btnAdd.setText("Add");
-        Order.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 220, 170, 50));
-
-        btnPay.setText("Payment");
-        btnPay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPayActionPerformed(evt);
-            }
-        });
-        Order.add(btnPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 500, 170, 50));
-
-        btnSend.setText("Send/Exit");
-        Order.add(btnSend, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 580, 170, 50));
-
-        btnAddNoCharge.setText("Add");
-        Order.add(btnAddNoCharge, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 640, 170, 60));
-
-        btnAddCharge.setText("$Add");
-        Order.add(btnAddCharge, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 640, 170, 60));
-
-        btnAllergy.setText("!ALLERGY!");
-        Order.add(btnAllergy, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 640, 170, 60));
-
-        btnVoid.setText("Void");
-        Order.add(btnVoid, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 290, 170, 50));
-
-        btnOrder.setText("Order");
-        btnOrder.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOrderActionPerformed(evt);
-            }
-        });
-        Order.add(btnOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 150, 170, 50));
-
-        mainPanel.add(Order, "order");
-
         Payment.setPreferredSize(new java.awt.Dimension(1300, 750));
         Payment.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -598,21 +701,6 @@ public class POS extends javax.swing.JFrame {
         seatPayment.setLayout(new java.awt.CardLayout());
         Payment.add(seatPayment, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 680, 420));
 
-        seatOne.setText("Seat 1");
-        Payment.add(seatOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 110, 30));
-
-        seatTwo.setText("Seat 2");
-        Payment.add(seatTwo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 110, 30));
-
-        seatThree.setText("Seat 3");
-        Payment.add(seatThree, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, 110, 30));
-
-        seatFour.setText("Seat 4");
-        Payment.add(seatFour, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, 110, 30));
-
-        nextSeat.setText("Next Seat");
-        Payment.add(nextSeat, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 20, 110, 30));
-
         Pay.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         Pay.setLayout(new java.awt.CardLayout());
 
@@ -620,11 +708,11 @@ public class POS extends javax.swing.JFrame {
         emptyCash.setLayout(emptyCashLayout);
         emptyCashLayout.setHorizontalGroup(
             emptyCashLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 676, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         emptyCashLayout.setVerticalGroup(
             emptyCashLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 176, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         Pay.add(emptyCash, "card3");
@@ -698,6 +786,46 @@ public class POS extends javax.swing.JFrame {
         });
         Payment.add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 500, 250, 90));
 
+        seat1.setText("Seat 1");
+        seat1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seat1ActionPerformed(evt);
+            }
+        });
+        Payment.add(seat1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+
+        seat2.setText("Seat 2");
+        seat2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seat2ActionPerformed(evt);
+            }
+        });
+        Payment.add(seat2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, -1, -1));
+
+        seat3.setText("Seat 3");
+        seat3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seat3ActionPerformed(evt);
+            }
+        });
+        Payment.add(seat3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, -1, -1));
+
+        seat4.setText("Seat 4");
+        seat4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seat4ActionPerformed(evt);
+            }
+        });
+        Payment.add(seat4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, -1, -1));
+
+        allSeat.setText("All Seats");
+        allSeat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                allSeatActionPerformed(evt);
+            }
+        });
+        Payment.add(allSeat, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 20, -1, -1));
+
         mainPanel.add(Payment, "payment");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -713,7 +841,33 @@ public class POS extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    private void disableButtons(){
+        //disable the buttons on the order panel until a toggle button is enabled
+        btnApps.setEnabled(false);
+        btnSalad.setEnabled(false);
+        btnSandwich.setEnabled(false);
+        btnEntree.setEnabled(false);
+        btnDrinks.setEnabled(false);
+        btnDessert.setEnabled(false);
+        btnAddNoCharge.setEnabled(false);
+        btnAddCharge.setEnabled(false);
+        btnAllergy.setEnabled(false);
+    }
+    
+    private void enableButtons(){
+        //enable the buttons on the order panel while a toggle button is enabled
+        btnApps.setEnabled(true);
+        btnSalad.setEnabled(true);
+        btnSandwich.setEnabled(true);
+        btnEntree.setEnabled(true);
+        btnDrinks.setEnabled(true);
+        btnDessert.setEnabled(true);
+        btnAddNoCharge.setEnabled(true);
+        btnAddCharge.setEnabled(true);
+        btnAllergy.setEnabled(true);
+    }
+    
     private void tbl50ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbl50ActionPerformed
         mainPanel.removeAll();
         mainPanel.add(Order);
@@ -806,13 +960,16 @@ public class POS extends javax.swing.JFrame {
         }
         if(isAuthorized){                                       //if boolean is true
             mainPanel.removeAll();                              //move to the tables JPanel
-            mainPanel.add(Tables);
+            mainPanel.add(Tables);                              
             mainPanel.repaint();
             mainPanel.revalidate();
         }
         else{
-            input.setText("");
+            input.setText("");                                  //empty input text field
         }
+        
+        disableButtons();                                       //call method to disable order buttons
+        
     }//GEN-LAST:event_btnOkActionPerformed
 
     private void tbl40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbl40ActionPerformed
@@ -862,6 +1019,11 @@ public class POS extends javax.swing.JFrame {
         mainPanel.add(login);
         mainPanel.repaint();
         mainPanel.revalidate();
+        
+        dynamicPanel.removeAll();
+        dynamicPanel.add(orderPanel);
+        dynamicPanel.repaint();
+        dynamicPanel.revalidate();
     }//GEN-LAST:event_newTableActionPerformed
 
     private void btnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayActionPerformed
@@ -876,6 +1038,13 @@ public class POS extends javax.swing.JFrame {
         mainPanel.add(login);
         mainPanel.repaint();
         mainPanel.revalidate();
+        
+        Pay.removeAll();
+        Pay.add(emptyCash);
+        Pay.repaint();
+        Pay.revalidate();
+        
+        
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCashActionPerformed
@@ -934,6 +1103,163 @@ public class POS extends javax.swing.JFrame {
         Pay.revalidate();
     }//GEN-LAST:event_btnCardActionPerformed
 
+    private void s1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_s1ActionPerformed
+        //let buttons be enabled when toggle button is pushed, and disable when it is no longer selected
+        if(s1.isSelected()){
+            enableButtons();                        //enable menu buttons
+            //disable other toggle buttons
+            s2.setEnabled(false);
+            s3.setEnabled(false);
+            s4.setEnabled(false);
+        }
+        else{
+            disableButtons();                       //disable menu buttons
+            //enable other toggle buttons
+            s2.setEnabled(true);
+            s3.setEnabled(true);
+            s4.setEnabled(true);
+        }
+    }//GEN-LAST:event_s1ActionPerformed
+
+    private void s2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_s2ActionPerformed
+        //let buttons be enabled when toggle button is pushed, and disable when it is no longer selected
+        if(s2.isSelected()){
+            enableButtons();                        //enable menu buttons
+            //disable other toggle buttons
+            s1.setEnabled(false);
+            s3.setEnabled(false);
+            s4.setEnabled(false);
+        }
+        else{
+            disableButtons();                       //disable menu buttons
+            //enable other toggle buttons
+            s1.setEnabled(true);
+            s3.setEnabled(true);
+            s4.setEnabled(true);
+        }
+    }//GEN-LAST:event_s2ActionPerformed
+
+    private void s3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_s3ActionPerformed
+        //let buttons be enabled when toggle button is pushed, and disable when it is no longer selected
+        if(s3.isSelected()){
+            enableButtons();                        //enable menu buttons
+            //disable other toggle buttons
+            s1.setEnabled(false);
+            s2.setEnabled(false);
+            s4.setEnabled(false);
+        }
+        else{
+            disableButtons();                       //disable menu buttons
+            //enable other toggle buttons
+            s1.setEnabled(true);
+            s2.setEnabled(true);
+            s4.setEnabled(true);
+        }
+    }//GEN-LAST:event_s3ActionPerformed
+
+    private void s4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_s4ActionPerformed
+        //let buttons be enabled when toggle button is pushed, and disable when it is no longer selected
+        if(s4.isSelected()){
+            enableButtons();                        //enable menu buttons
+            //disable other toggle buttons
+            s1.setEnabled(false);
+            s2.setEnabled(false);
+            s3.setEnabled(false);
+        }
+        else{
+            disableButtons();                       //disable menu buttons
+            //enable other toggle buttons
+            s1.setEnabled(true);
+            s2.setEnabled(true);
+            s3.setEnabled(true);
+        }
+    }//GEN-LAST:event_s4ActionPerformed
+
+    private void btnAddNoChargeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNoChargeActionPerformed
+        dynamicPanel.removeAll();
+        dynamicPanel.add(noUpcharge);
+        dynamicPanel.repaint();
+        dynamicPanel.revalidate();
+    }//GEN-LAST:event_btnAddNoChargeActionPerformed
+
+    private void btnAddChargeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddChargeActionPerformed
+        dynamicPanel.removeAll();
+        dynamicPanel.add(upcharge);
+        dynamicPanel.repaint();
+        dynamicPanel.revalidate();
+    }//GEN-LAST:event_btnAddChargeActionPerformed
+
+    private void btnAllergyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllergyActionPerformed
+        dynamicPanel.removeAll();
+        dynamicPanel.add(allergies);
+        dynamicPanel.repaint();
+        dynamicPanel.revalidate();
+    }//GEN-LAST:event_btnAllergyActionPerformed
+
+    private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
+        mainPanel.removeAll();
+        mainPanel.add(Tables);
+        mainPanel.repaint();
+        mainPanel.revalidate();
+        
+        dynamicPanel.removeAll();
+        dynamicPanel.add(orderPanel);
+        dynamicPanel.repaint();
+        dynamicPanel.revalidate();
+    }//GEN-LAST:event_btnSendActionPerformed
+
+    private void seat1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat1ActionPerformed
+
+        if(seat1.isSelected()){
+            allSeat.setEnabled(false);
+        }
+        else{
+            allSeat.setEnabled(true);
+        }
+    }//GEN-LAST:event_seat1ActionPerformed
+
+    private void seat2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat2ActionPerformed
+        if(seat2.isSelected()){
+            allSeat.setEnabled(false);
+        }
+        else{
+            allSeat.setEnabled(true);
+        }
+    }//GEN-LAST:event_seat2ActionPerformed
+
+    private void seat3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat3ActionPerformed
+        if(seat3.isSelected()){
+            allSeat.setEnabled(false);
+        }
+        else{
+            allSeat.setEnabled(true);
+        }
+    }//GEN-LAST:event_seat3ActionPerformed
+
+    private void seat4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat4ActionPerformed
+        if(seat4.isSelected()){
+            allSeat.setEnabled(false);
+        }
+        else{
+            allSeat.setEnabled(true);
+        }
+    }//GEN-LAST:event_seat4ActionPerformed
+
+    private void allSeatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allSeatActionPerformed
+        if(allSeat.isSelected()){
+            seat1.setEnabled(false);
+            seat2.setEnabled(false);
+            seat3.setEnabled(false);
+            seat4.setEnabled(false);
+        }
+        else{
+            seat1.setEnabled(true);
+            seat2.setEnabled(true);
+            seat3.setEnabled(true);
+            seat4.setEnabled(true);
+        }
+    }//GEN-LAST:event_allSeatActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -975,6 +1301,8 @@ public class POS extends javax.swing.JFrame {
     private javax.swing.JPanel Payment;
     private javax.swing.JPanel Tables;
     private javax.swing.JButton accept;
+    private javax.swing.JToggleButton allSeat;
+    private javax.swing.JPanel allergies;
     private javax.swing.JScrollPane appList;
     private javax.swing.JPanel appetizers;
     private javax.swing.JButton btnAdd;
@@ -1026,34 +1354,39 @@ public class POS extends javax.swing.JFrame {
     private javax.swing.JButton exitTables;
     private javax.swing.JTextField input;
     private javax.swing.JList<String> jList1;
+    private javax.swing.JList<String> jList10;
     private javax.swing.JList<String> jList2;
     private javax.swing.JList<String> jList3;
     private javax.swing.JList<String> jList4;
     private javax.swing.JList<String> jList5;
     private javax.swing.JList<String> jList6;
     private javax.swing.JList<String> jList7;
+    private javax.swing.JList<String> jList8;
+    private javax.swing.JList<String> jList9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPanel login;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JButton newTable;
-    private javax.swing.JButton nextSeat;
-    private javax.swing.JButton ns;
+    private javax.swing.JPanel noUpcharge;
     private javax.swing.JPanel orderPanel;
     private javax.swing.JTextField payIn;
     private javax.swing.JPanel payInCash;
     private javax.swing.JButton report;
-    private javax.swing.JButton s1;
-    private javax.swing.JButton s2;
-    private javax.swing.JButton s3;
-    private javax.swing.JButton s4;
+    private javax.swing.JToggleButton s1;
+    private javax.swing.JToggleButton s2;
+    private javax.swing.JToggleButton s3;
+    private javax.swing.JToggleButton s4;
     private javax.swing.JScrollPane saladList;
     private javax.swing.JPanel salads;
     private javax.swing.JScrollPane sandList;
     private javax.swing.JPanel sandwiches;
-    private javax.swing.JButton seatFour;
-    private javax.swing.JButton seatOne;
+    private javax.swing.JToggleButton seat1;
+    private javax.swing.JToggleButton seat2;
+    private javax.swing.JToggleButton seat3;
+    private javax.swing.JToggleButton seat4;
     private javax.swing.JPanel seatPayment;
-    private javax.swing.JButton seatThree;
-    private javax.swing.JButton seatTwo;
     private javax.swing.JButton tbl10;
     private javax.swing.JButton tbl20;
     private javax.swing.JButton tbl30;
@@ -1064,5 +1397,6 @@ public class POS extends javax.swing.JFrame {
     private javax.swing.JTextField tipIn;
     private javax.swing.JLabel tipLabel;
     private javax.swing.JLabel totalPayment;
+    private javax.swing.JPanel upcharge;
     // End of variables declaration//GEN-END:variables
 }
