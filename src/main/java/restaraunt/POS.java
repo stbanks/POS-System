@@ -20,8 +20,15 @@ public class POS extends javax.swing.JFrame {
         initComponents();
     }
     
-    double ids[] = {1289, 1863, 8246, 7979};            //stores an array of acceptable id numbers for login
+    double ids[] = {1289, 1863, 8246, 7979};//stores an array of acceptable id numbers for login
 
+   
+    
+    
+    
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
