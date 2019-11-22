@@ -7,6 +7,10 @@ package restaraunt;
 
 //import java.awt.CardLayout;
 
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+
 /**
  *
  * @author trims
@@ -110,6 +114,8 @@ public class POS extends javax.swing.JFrame {
         exitTables = new javax.swing.JButton();
         Payment = new javax.swing.JPanel();
         seatPayment = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jList11 = new javax.swing.JList<>();
         Pay = new javax.swing.JPanel();
         emptyCash = new javax.swing.JPanel();
         creditCard = new javax.swing.JPanel();
@@ -118,7 +124,7 @@ public class POS extends javax.swing.JFrame {
         tipIn = new javax.swing.JTextField();
         cardAccept = new javax.swing.JButton();
         cardCancel = new javax.swing.JButton();
-        cardPayIn = new javax.swing.JTextField();
+        totalCardPayment = new javax.swing.JLabel();
         payInCash = new javax.swing.JPanel();
         totalPayment = new javax.swing.JLabel();
         changeDue = new javax.swing.JLabel();
@@ -699,6 +705,11 @@ public class POS extends javax.swing.JFrame {
         seatPayment.setBackground(new java.awt.Color(204, 204, 204));
         seatPayment.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         seatPayment.setLayout(new java.awt.CardLayout());
+
+        jScrollPane4.setViewportView(jList11);
+
+        seatPayment.add(jScrollPane4, "card2");
+
         Payment.add(seatPayment, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 680, 420));
 
         Pay.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -727,11 +738,24 @@ public class POS extends javax.swing.JFrame {
         creditCard.add(tipIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 230, 30));
 
         cardAccept.setText("Accept");
+        cardAccept.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cardAcceptActionPerformed(evt);
+            }
+        });
         creditCard.add(cardAccept, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, -1, -1));
 
         cardCancel.setText("Cancel");
+        cardCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cardCancelActionPerformed(evt);
+            }
+        });
         creditCard.add(cardCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 140, -1, -1));
-        creditCard.add(cardPayIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 230, 30));
+
+        totalCardPayment.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        totalCardPayment.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        creditCard.add(totalCardPayment, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 230, 30));
 
         Pay.add(creditCard, "card4");
 
@@ -746,9 +770,19 @@ public class POS extends javax.swing.JFrame {
         payInCash.add(payIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, 230, 30));
 
         accept.setText("Accept");
+        accept.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acceptActionPerformed(evt);
+            }
+        });
         payInCash.add(accept, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, -1, -1));
 
         cancel.setText("Cancel");
+        cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelActionPerformed(evt);
+            }
+        });
         payInCash.add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 140, -1, -1));
 
         change.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -841,6 +875,14 @@ public class POS extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    public String getPayIn() {
+        return payIn.getText();
+    }
+    
+    public String getTip(){
+        return tipIn.getText();
+    }
     
     private void disableButtons(){
         //disable the buttons on the order panel until a toggle button is enabled
@@ -1044,7 +1086,7 @@ public class POS extends javax.swing.JFrame {
         Pay.repaint();
         Pay.revalidate();
         
-        
+        input.setText("");
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCashActionPerformed
@@ -1260,6 +1302,36 @@ public class POS extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_allSeatActionPerformed
 
+    private void acceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptActionPerformed
+           
+        double totalCashPayment = Double.parseDouble(getPayIn());
+        
+        Waiter testServer = new Waiter();
+        String catchCash;
+        catchCash = testServer.handleCashPayment(totalCashPayment);
+        change.setText(catchCash);
+        
+    }//GEN-LAST:event_acceptActionPerformed
+
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+        change.setText("");
+        payIn.setText("");
+    }//GEN-LAST:event_cancelActionPerformed
+
+    private void cardAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardAcceptActionPerformed
+        double totalCreditPayment = Double.parseDouble(getTip());
+        
+        Waiter tempServer = new Waiter();
+        String cardTotal;
+        cardTotal = tempServer.handleCreditPayment(totalCreditPayment);
+        totalCardPayment.setText(cardTotal);
+    }//GEN-LAST:event_cardAcceptActionPerformed
+
+    private void cardCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardCancelActionPerformed
+        totalCardPayment.setText("");
+        tipIn.setText("");
+    }//GEN-LAST:event_cardCancelActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1286,13 +1358,17 @@ public class POS extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(POS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
+        POS restaurant = new POS();                         //instantiate the class
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new POS().setVisible(true);
+                restaurant.setVisible(true);
             }
         });
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1337,7 +1413,6 @@ public class POS extends javax.swing.JFrame {
     private javax.swing.JButton cancel;
     private javax.swing.JButton cardAccept;
     private javax.swing.JButton cardCancel;
-    private javax.swing.JTextField cardPayIn;
     private javax.swing.JLabel cardPayment;
     private javax.swing.JLabel change;
     private javax.swing.JLabel changeDue;
@@ -1355,6 +1430,7 @@ public class POS extends javax.swing.JFrame {
     private javax.swing.JTextField input;
     private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList10;
+    private javax.swing.JList<String> jList11;
     private javax.swing.JList<String> jList2;
     private javax.swing.JList<String> jList3;
     private javax.swing.JList<String> jList4;
@@ -1366,6 +1442,7 @@ public class POS extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JPanel login;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JButton newTable;
@@ -1396,7 +1473,9 @@ public class POS extends javax.swing.JFrame {
     private javax.swing.JButton tbl61;
     private javax.swing.JTextField tipIn;
     private javax.swing.JLabel tipLabel;
+    private javax.swing.JLabel totalCardPayment;
     private javax.swing.JLabel totalPayment;
     private javax.swing.JPanel upcharge;
     // End of variables declaration//GEN-END:variables
+ 
 }
