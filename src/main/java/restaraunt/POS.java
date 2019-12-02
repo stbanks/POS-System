@@ -24,8 +24,13 @@ public class POS extends javax.swing.JFrame {
         initComponents();
     }
     
-    double ids[] = {1289, 1863, 8246, 7979};            //stores an array of acceptable id numbers for login
-
+    //double ids[] = {1289, 1863, 8246};            //stores an array of acceptable id numbers for login
+    Waiter steven = new Waiter(1289);
+    Waiter lietzy = new Waiter(1863);
+    Waiter rafael = new Waiter(8246);
+    boolean stevenLog = false;                    //will flag which server is currently logged in
+    boolean lietzyLog = false;                    //will flag which server is currently logged in
+    boolean rafaelLog = false;                    //will flag which server is currently logged in
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -109,9 +114,9 @@ public class POS extends javax.swing.JFrame {
         tbl50 = new javax.swing.JButton();
         tbl60 = new javax.swing.JButton();
         tbl61 = new javax.swing.JButton();
-        newTable = new javax.swing.JButton();
-        report = new javax.swing.JButton();
         exitTables = new javax.swing.JButton();
+        makeTable = new javax.swing.JButton();
+        runReport = new javax.swing.JButton();
         Payment = new javax.swing.JPanel();
         seatPayment = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -680,22 +685,27 @@ public class POS extends javax.swing.JFrame {
         });
         Tables.add(tbl61, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 480, 110, 110));
 
-        newTable.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
-        newTable.setText("Exit");
-        newTable.addActionListener(new java.awt.event.ActionListener() {
+        exitTables.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        exitTables.setText("Exit");
+        exitTables.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newTableActionPerformed(evt);
+                exitTablesActionPerformed(evt);
             }
         });
-        Tables.add(newTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 600, 140, 50));
+        Tables.add(exitTables, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 600, 140, 50));
 
-        report.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
-        report.setText("Make Table");
-        Tables.add(report, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 30, 140, 50));
+        makeTable.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        makeTable.setText("Make Table");
+        Tables.add(makeTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 30, 140, 50));
 
-        exitTables.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
-        exitTables.setText("Run Report");
-        Tables.add(exitTables, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 150, 140, 50));
+        runReport.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        runReport.setText("Run Report");
+        runReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                runReportActionPerformed(evt);
+            }
+        });
+        Tables.add(runReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 150, 140, 50));
 
         mainPanel.add(Tables, "tables");
 
@@ -991,16 +1001,33 @@ public class POS extends javax.swing.JFrame {
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
 
         String inputID;                                         //insantiate an empty string
-        boolean isAuthorized = false;                           //this boolean will tell us if the user is authorized
+        //boolean isAuthorized = false;                           //this boolean will tell us if the user is authorized
         inputID = input.getText();                              //get the text from the text box
         double inputIDNum = Double.parseDouble(inputID);        //parse it to a double
         
-        for(int i = 0; i < ids.length; i++){                    //iterate through the array of ID numbers
+        /*for(int i = 0; i < ids.length; i++){                    //iterate through the array of ID numbers
             if(inputIDNum == ids[i]){                           //if the entered ID number matches the current element in the array 
                 isAuthorized = true;                            //set to true
             }    
+        }*/
+        
+        if(inputIDNum == steven.getId()){
+            stevenLog = true;
+            lietzyLog = false;
+            rafaelLog = false;
         }
-        if(isAuthorized){                                       //if boolean is true
+        else if(inputIDNum == lietzy.getId()){
+            lietzyLog = true;
+            stevenLog = false;
+            rafaelLog = false;
+        }
+        else if(inputIDNum == rafael.getId()){
+            rafaelLog = true;
+            stevenLog = false;
+            lietzyLog = false;
+        }
+        
+        /*if(isAuthorized){                                       //if boolean is true
             mainPanel.removeAll();                              //move to the tables JPanel
             mainPanel.add(Tables);                              
             mainPanel.repaint();
@@ -1008,6 +1035,16 @@ public class POS extends javax.swing.JFrame {
         }
         else{
             input.setText("");                                  //empty input text field
+        }*/
+        
+        if(stevenLog || lietzyLog || rafaelLog){
+            mainPanel.removeAll();                              //move to the tables JPanel
+            mainPanel.add(Tables);                              
+            mainPanel.repaint();
+            mainPanel.revalidate();
+        }
+        else{
+            input.setText("");
         }
         
         disableButtons();                                       //call method to disable order buttons
@@ -1056,7 +1093,7 @@ public class POS extends javax.swing.JFrame {
         mainPanel.revalidate();
     }//GEN-LAST:event_tbl61ActionPerformed
 
-    private void newTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newTableActionPerformed
+    private void exitTablesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitTablesActionPerformed
         mainPanel.removeAll();
         mainPanel.add(login);
         mainPanel.repaint();
@@ -1066,7 +1103,7 @@ public class POS extends javax.swing.JFrame {
         dynamicPanel.add(orderPanel);
         dynamicPanel.repaint();
         dynamicPanel.revalidate();
-    }//GEN-LAST:event_newTableActionPerformed
+    }//GEN-LAST:event_exitTablesActionPerformed
 
     private void btnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayActionPerformed
         mainPanel.removeAll();
@@ -1303,13 +1340,24 @@ public class POS extends javax.swing.JFrame {
     }//GEN-LAST:event_allSeatActionPerformed
 
     private void acceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptActionPerformed
-           
         double totalCashPayment = Double.parseDouble(getPayIn());
-        
-        Waiter testServer = new Waiter();
         String catchCash;
-        catchCash = testServer.handleCashPayment(totalCashPayment);
-        change.setText(catchCash);
+        
+        if(stevenLog){
+            catchCash = steven.handleCashPayment(totalCashPayment);
+            change.setText(catchCash);
+            steven.updateReportCash(totalCashPayment);
+        }
+        else if(lietzyLog){
+            catchCash = lietzy.handleCashPayment(totalCashPayment);
+            change.setText(catchCash);
+            lietzy.updateReportCash(totalCashPayment);
+        }
+        else if(rafaelLog){
+            catchCash = rafael.handleCashPayment(totalCashPayment);
+            change.setText(catchCash);
+            rafael.updateReportCash(totalCashPayment);
+        }
         
     }//GEN-LAST:event_acceptActionPerformed
 
@@ -1320,17 +1368,45 @@ public class POS extends javax.swing.JFrame {
 
     private void cardAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardAcceptActionPerformed
         double totalCreditPayment = Double.parseDouble(getTip());
-        
-        Waiter tempServer = new Waiter();
         String cardTotal;
-        cardTotal = tempServer.handleCreditPayment(totalCreditPayment);
-        totalCardPayment.setText(cardTotal);
+        
+        if(stevenLog){
+            cardTotal = steven.handleCreditPayment(totalCreditPayment);
+            totalCardPayment.setText(cardTotal);
+            steven.updateReportCard(totalCreditPayment);
+        }
+        else if(lietzyLog){
+            cardTotal = lietzy.handleCreditPayment(totalCreditPayment);
+            totalCardPayment.setText(cardTotal);
+            lietzy.updateReportCard(totalCreditPayment);
+        }
+        else if(rafaelLog){
+            cardTotal = rafael.handleCreditPayment(totalCreditPayment);
+            totalCardPayment.setText(cardTotal);
+            rafael.updateReportCard(totalCreditPayment);
+        }
     }//GEN-LAST:event_cardAcceptActionPerformed
 
     private void cardCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardCancelActionPerformed
         totalCardPayment.setText("");
         tipIn.setText("");
     }//GEN-LAST:event_cardCancelActionPerformed
+
+    private void runReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runReportActionPerformed
+        String tempName;
+        if(stevenLog){
+            tempName = "Steven";
+            steven.runReport(tempName);
+        }
+        else if(lietzyLog){
+            tempName = "Jacob";
+            lietzy.runReport(tempName);
+        }
+        else if(rafaelLog){
+            tempName = "Rafael";
+            rafael.runReport(tempName);
+        }
+    }//GEN-LAST:event_runReportActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1445,12 +1521,12 @@ public class POS extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JPanel login;
     private javax.swing.JPanel mainPanel;
-    private javax.swing.JButton newTable;
+    private javax.swing.JButton makeTable;
     private javax.swing.JPanel noUpcharge;
     private javax.swing.JPanel orderPanel;
     private javax.swing.JTextField payIn;
     private javax.swing.JPanel payInCash;
-    private javax.swing.JButton report;
+    private javax.swing.JButton runReport;
     private javax.swing.JToggleButton s1;
     private javax.swing.JToggleButton s2;
     private javax.swing.JToggleButton s3;
