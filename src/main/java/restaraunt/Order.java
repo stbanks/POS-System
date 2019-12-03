@@ -2,23 +2,25 @@ package restaraunt;
 import java.util.ArrayList;
 
 public class Order {
-    private Table relatedTable;
+    private int tableId;
     private Waiter relatedWaiter;
-    private Customer relatedCustomer;
+    private int seatId;
     private ArrayList<Food> order = new ArrayList<Food>();
 
 
-    public Order(Table table,  ArrayList<Food> foodList, Customer customer){
-        relatedTable = table;
-        order = foodList;
-        relatedCustomer = customer;
+    public Order(int tableId,  ArrayList<Food> foodList, int seatId){
+        this.tableId= tableId;
+        this.order = foodList;
+        this.seatId = seatId;
         
 
 
     }
-    public Customer getCustomer(){
-        return relatedCustomer;
+    public void addToOrder(int tableId, Food tempList, int customerId){
+     
     }
-    
-   
+  
+    public ArrayList<Food> getOrder(){
+        return order;
+    }
 }
