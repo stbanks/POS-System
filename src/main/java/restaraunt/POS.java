@@ -7,6 +7,8 @@ package restaraunt;
 
 //import java.awt.CardLayout;
 
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -16,6 +18,34 @@ import javax.swing.JTextField;
  * @author trims
  */
 public class POS extends javax.swing.JFrame {
+
+public static ArrayList<Food> appsList = initFoodList(1);
+public static ArrayList<Food> saladsList = initFoodList(2);
+public static ArrayList<Food> sandwhichesList = initFoodList(3);
+public static ArrayList<Food> entreesList = initFoodList(4);
+public static ArrayList<Food> dessertsList = initFoodList(5);
+public static ArrayList<Food> drinksList  = initFoodList(10);
+
+public static ArrayList<Food> addToOrderList = new ArrayList<Food>();
+
+public  static DefaultListModel appModel = new DefaultListModel();
+public static DefaultListModel saladModel = new DefaultListModel();
+public static DefaultListModel sandModel = new DefaultListModel();
+public static DefaultListModel entreeModel = new DefaultListModel();
+public static DefaultListModel dessertModel = new DefaultListModel();
+public static DefaultListModel drinkModel = new DefaultListModel();
+
+public static DefaultListModel orderModel = new DefaultListModel();
+
+
+
+public static int currentIndex = 100;
+public static String type = "";
+public static int currentSeat = 0;
+
+public static Table currentTable = new Table(1,1,4);
+public static Order currentOrderFinal;
+public static Order seat1Order;
 
     /**
      * Creates new form POS
@@ -63,22 +93,22 @@ public class POS extends javax.swing.JFrame {
         jList1 = new javax.swing.JList<>();
         appetizers = new javax.swing.JPanel();
         appList = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        appetizerList = new javax.swing.JList<>();
         salads = new javax.swing.JPanel();
-        saladList = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList<>();
+        saladPane = new javax.swing.JScrollPane();
+        saladList = new javax.swing.JList<>();
         sandwiches = new javax.swing.JPanel();
-        sandList = new javax.swing.JScrollPane();
-        jList4 = new javax.swing.JList<>();
+        sandwhichPane = new javax.swing.JScrollPane();
+        sandwhichList = new javax.swing.JList<>();
         entrees = new javax.swing.JPanel();
-        entreeList = new javax.swing.JScrollPane();
-        jList5 = new javax.swing.JList<>();
+        entreePane = new javax.swing.JScrollPane();
+        entreeList = new javax.swing.JList<>();
         desserts = new javax.swing.JPanel();
-        dessertList = new javax.swing.JScrollPane();
-        jList6 = new javax.swing.JList<>();
+        dessertPane = new javax.swing.JScrollPane();
+        desserList = new javax.swing.JList<>();
         drinks = new javax.swing.JPanel();
-        drinkList = new javax.swing.JScrollPane();
-        jList7 = new javax.swing.JList<>();
+        drinkPane = new javax.swing.JScrollPane();
+        drinkList = new javax.swing.JList<>();
         allergies = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList8 = new javax.swing.JList<>();
@@ -94,7 +124,7 @@ public class POS extends javax.swing.JFrame {
         btnEntree = new javax.swing.JButton();
         btnDessert = new javax.swing.JButton();
         btnDrinks = new javax.swing.JButton();
-        btnAdd = new javax.swing.JButton();
+        addToOderBtn = new javax.swing.JButton();
         btnPay = new javax.swing.JButton();
         btnSend = new javax.swing.JButton();
         btnAddNoCharge = new javax.swing.JButton();
@@ -274,15 +304,15 @@ public class POS extends javax.swing.JFrame {
         dynamicPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         dynamicPanel.setLayout(new java.awt.CardLayout());
 
+        jList1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jList1.setModel(orderModel);
         currentOrder.setViewportView(jList1);
 
         javax.swing.GroupLayout orderPanelLayout = new javax.swing.GroupLayout(orderPanel);
         orderPanel.setLayout(orderPanelLayout);
         orderPanelLayout.setHorizontalGroup(
             orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(orderPanelLayout.createSequentialGroup()
-                .addGap(690, 690, 690)
-                .addComponent(currentOrder, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE))
+            .addComponent(currentOrder, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
         );
         orderPanelLayout.setVerticalGroup(
             orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,128 +321,109 @@ public class POS extends javax.swing.JFrame {
 
         dynamicPanel.add(orderPanel, "card8");
 
-        jList2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Hot Wings\t\t\t\t\t$9.99", " ", "Southwest Chicken Spring Rolls\t\t\t$9.99", " ", "Nachos\t\t\t\t\t$9.99", " ", "Fried Pickles\t\t\t\t\t$7.99", " ", "Chips & Salsa\t\t\t\t\t$3.99", " ", " " };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        appetizerList.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        appetizerList.setModel(appModel);
+        appetizerList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                appetizerListMouseClicked(evt);
+            }
         });
-        appList.setViewportView(jList2);
+        appList.setViewportView(appetizerList);
 
         javax.swing.GroupLayout appetizersLayout = new javax.swing.GroupLayout(appetizers);
         appetizers.setLayout(appetizersLayout);
         appetizersLayout.setHorizontalGroup(
             appetizersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(appList, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+            .addComponent(appList, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
         );
         appetizersLayout.setVerticalGroup(
             appetizersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(appList, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+            .addComponent(appList, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
         );
 
         dynamicPanel.add(appetizers, "card7");
 
-        jList3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jList3.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Cobb Salad\t\t\t\t\t$12.99", " ", "Chef Salad\t\t\t\t\t$12.99", " ", "Grilled Chicken Salad\t\t\t\t$14.99", " ", "Steak Salad\t\t\t\t\t$14.99" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        saladList.setViewportView(jList3);
+        saladList.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        saladList.setModel(saladModel);
+        saladPane.setViewportView(saladList);
 
         javax.swing.GroupLayout saladsLayout = new javax.swing.GroupLayout(salads);
         salads.setLayout(saladsLayout);
         saladsLayout.setHorizontalGroup(
             saladsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(saladList, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+            .addComponent(saladPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
         );
         saladsLayout.setVerticalGroup(
             saladsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(saladList, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+            .addComponent(saladPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
         );
 
         dynamicPanel.add(salads, "card6");
 
-        jList4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jList4.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "French Dip\t\t\t\t\t$9.99", " ", "Tuna Melt\t\t\t\t\t$10.99", " ", "Steak Sandwich\t\t\t\t$14.99", " ", "Club Sandwich\t\t\t\t\t$10.99", " ", "Chicken Sandwich\t\t\t\t$9.99", " ", "Cheese Burger\t\t\t\t\t$9.99", " ", "BBQ Burger\t\t\t\t\t$10.99", " ", "Black Bean Burger\t\t\t\t$8.99" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        sandList.setViewportView(jList4);
+        sandwhichList.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        sandwhichList.setModel(sandModel);
+        sandwhichPane.setViewportView(sandwhichList);
 
         javax.swing.GroupLayout sandwichesLayout = new javax.swing.GroupLayout(sandwiches);
         sandwiches.setLayout(sandwichesLayout);
         sandwichesLayout.setHorizontalGroup(
             sandwichesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sandList, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+            .addComponent(sandwhichPane, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
         );
         sandwichesLayout.setVerticalGroup(
             sandwichesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sandList, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+            .addComponent(sandwhichPane, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
         );
 
         dynamicPanel.add(sandwiches, "card5");
 
-        jList5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jList5.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Spaghetti & Meatballs\t\t\t\t$10.99", " ", "Blackened Salmon\t\t\t\t$14.99", " ", "New York Strip\t\t\t\t\t$17.99", " ", "Ribeye\t\t\t\t\t$19.99", " ", "Fried Chicken\t\t\t\t\t$14.99", " ", "Charred Chicken Burrito\t\t\t\t$12.99", " ", "Lentil Marsala and Rice\t\t\t\t$9.99" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        entreeList.setViewportView(jList5);
+        entreeList.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        entreeList.setModel(entreeModel);
+        entreePane.setViewportView(entreeList);
 
         javax.swing.GroupLayout entreesLayout = new javax.swing.GroupLayout(entrees);
         entrees.setLayout(entreesLayout);
         entreesLayout.setHorizontalGroup(
             entreesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(entreeList, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+            .addComponent(entreePane, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
         );
         entreesLayout.setVerticalGroup(
             entreesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(entreeList, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+            .addComponent(entreePane, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
         );
 
         dynamicPanel.add(entrees, "card4");
 
-        jList6.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jList6.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Molten Lava Cake\t\t\t\t$8.99", " ", "Cheesecake\t\t\t\t\t$6.99", " ", "Pie ala Mode\t\t\t\t\t$6.99", " ", "Espresso\t\t\t\t\t$2.99" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        dessertList.setViewportView(jList6);
+        desserList.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        desserList.setModel(dessertModel);
+        dessertPane.setViewportView(desserList);
 
         javax.swing.GroupLayout dessertsLayout = new javax.swing.GroupLayout(desserts);
         desserts.setLayout(dessertsLayout);
         dessertsLayout.setHorizontalGroup(
             dessertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dessertList, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+            .addComponent(dessertPane, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
         );
         dessertsLayout.setVerticalGroup(
             dessertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dessertList, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+            .addComponent(dessertPane, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
         );
 
         dynamicPanel.add(desserts, "card3");
 
-        jList7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jList7.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Domestic Beer Btl\t\t\t\t$3.99", " ", "Import Beer Btl\t\t\t\t\t$4.99", " ", "Draft Beer\t\t\t\t\t$5.00", " ", "Glass Wine\t\t\t\t\t$6.00", " ", "Fountain Soda\t\t\t\t\t$2.99", " ", "Iced Tea\t\t\t\t\t$2.99" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        drinkList.setViewportView(jList7);
+        drinkList.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        drinkList.setModel(drinkModel);
+        drinkPane.setViewportView(drinkList);
 
         javax.swing.GroupLayout drinksLayout = new javax.swing.GroupLayout(drinks);
         drinks.setLayout(drinksLayout);
         drinksLayout.setHorizontalGroup(
             drinksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(drinkList, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+            .addComponent(drinkPane, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
         );
         drinksLayout.setVerticalGroup(
             drinksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(drinkList, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+            .addComponent(drinkPane, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
         );
 
         dynamicPanel.add(drinks, "card2");
@@ -530,8 +541,13 @@ public class POS extends javax.swing.JFrame {
         });
         Order.add(btnDrinks, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 420, 170, 50));
 
-        btnAdd.setText("Add");
-        Order.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 220, 170, 50));
+        addToOderBtn.setText("Add");
+        addToOderBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addToOderBtnActionPerformed(evt);
+            }
+        });
+        Order.add(addToOderBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 220, 170, 50));
 
         btnPay.setText("Payment");
         btnPay.addActionListener(new java.awt.event.ActionListener() {
@@ -896,6 +912,9 @@ public class POS extends javax.swing.JFrame {
     
     private void disableButtons(){
         //disable the buttons on the order panel until a toggle button is enabled
+        btnOrder.setEnabled(false);
+        addToOderBtn.setEnabled(false);
+        btnVoid.setEnabled(false);
         btnApps.setEnabled(false);
         btnSalad.setEnabled(false);
         btnSandwich.setEnabled(false);
@@ -909,6 +928,9 @@ public class POS extends javax.swing.JFrame {
     
     private void enableButtons(){
         //enable the buttons on the order panel while a toggle button is enabled
+         btnOrder.setEnabled(true);
+        addToOderBtn.setEnabled(true);
+        btnVoid.setEnabled(true);
         btnApps.setEnabled(true);
         btnSalad.setEnabled(true);
         btnSandwich.setEnabled(true);
@@ -1063,6 +1085,11 @@ public class POS extends javax.swing.JFrame {
         mainPanel.add(Order);
         mainPanel.repaint();
         mainPanel.revalidate();
+        
+        currentTable = new Table(30,30,4);
+        
+        
+        
     }//GEN-LAST:event_tbl30ActionPerformed
 
     private void tbl20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbl20ActionPerformed
@@ -1173,6 +1200,7 @@ public class POS extends javax.swing.JFrame {
         dynamicPanel.add(orderPanel);
         dynamicPanel.repaint();
         dynamicPanel.revalidate();
+      
     }//GEN-LAST:event_btnOrderActionPerformed
 
     private void btnCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCardActionPerformed
@@ -1184,6 +1212,12 @@ public class POS extends javax.swing.JFrame {
 
     private void s1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_s1ActionPerformed
         //let buttons be enabled when toggle button is pushed, and disable when it is no longer selected
+        orderModel.clear();
+        currentSeat = 1;
+        ArrayList<Food> blankOrderList = new ArrayList<Food>();
+       seat1Order = new Order(currentTable.getId(),blankOrderList, currentSeat);
+       
+    
         if(s1.isSelected()){
             enableButtons();                        //enable menu buttons
             //disable other toggle buttons
@@ -1208,6 +1242,8 @@ public class POS extends javax.swing.JFrame {
             s1.setEnabled(false);
             s3.setEnabled(false);
             s4.setEnabled(false);
+            
+           
         }
         else{
             disableButtons();                       //disable menu buttons
@@ -1408,6 +1444,161 @@ public class POS extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_runReportActionPerformed
 
+    private void appetizerListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_appetizerListMouseClicked
+             currentIndex = appetizerList.getSelectedIndex();
+             type = "app";
+             
+            
+    }//GEN-LAST:event_appetizerListMouseClicked
+
+    private void addToOderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToOderBtnActionPerformed
+        Food tempFood = new Food("Temp",0.0,"none");
+        
+        if(type.equals("app")){
+             tempFood = appsList.get(currentIndex);
+            addToOrderList.add(tempFood);
+            //tempFoodList.add(appsList.get(currentIndex));
+        }
+        
+        
+     if(s1.isSelected()){
+         seat1Order.addToOrder(currentTable.getId(), tempFood, 1);
+     }
+     ArrayList<Food> tempOrderList = seat1Order.getOrder();
+     for(int d = 0; d < tempOrderList.size(); d++){
+         orderModel.addElement(tempOrderList.get(d).getName() + " " + tempOrderList.get(d).getPrice());
+         
+     }
+        
+    }//GEN-LAST:event_addToOderBtnActionPerformed
+    
+    public static ArrayList<Food> initFoodList(int list){
+        
+
+    //appetizers section
+    ArrayList<Food> apps = new ArrayList<Food>();
+    Food cheeseBalls = new Food("CheeseBalls", 6.00, "app");
+    Food mozzSticks = new Food("Mozzarella Sticks", 6.00, "app");
+    Food friedPickles = new Food("Fried Pickles", 6.00, "app");
+    Food chips = new Food("Chips and Queso", 4.00, "app");
+    Food onionRings = new Food("Onion Rings", 6.00, "app");
+    Food miniDogs = new Food("Mini Corn Dogs", 8.00, "app");
+    Food wings = new Food("Boneless Wings ", 8.00, "app");
+    apps.add(cheeseBalls);    
+    apps.add(mozzSticks);
+    apps.add(friedPickles);
+    apps.add(chips);
+    apps.add(onionRings);
+    apps.add(miniDogs);
+    apps.add(wings);
+    
+    //salads
+    ArrayList<Food> salads = new ArrayList<Food>();
+    Food cobb = new Food("Cobb Salad", 12.99, "salad");
+    Food chef = new Food("Chef Salad", 12.99, "salad");
+    Food chickenS = new Food("Grilled Chicken Salad", 14.99, "salad");
+    Food steakS = new Food("Steak Salad", 14.99, "salad");
+    
+    salads.add(cobb);
+    salads.add(chef);
+    salads.add(chickenS);
+    salads.add(steakS);
+    
+    
+    //Sandwiches
+    ArrayList<Food> sands = new ArrayList<Food>();
+    Food dip = new Food("French Dip", 9.99, "sand");
+    Food melt = new Food("Tuna Melt", 10.99, "sand");
+    Food steakSand = new Food("Steak Sandwhich", 14.99, "sand");
+    Food club = new Food("Club Sandwhich", 10.99, "sand");
+    Food chickenSand = new Food("Chicken Sandwhich", 9.99, "sand");
+    Food cheeseBurger = new Food("American Cheeseburger", 9.99, "sand");
+    Food bbqBurger = new Food("BBQ Cheeseburger", 10.99, "sand");
+    Food beanBurger = new Food("Bean Burger", 8.99, "sand");
+    
+    
+    sands.add(dip);
+    sands.add(melt);
+    sands.add(steakSand);
+    sands.add(club);
+    sands.add(chickenSand);
+    sands.add(cheeseBurger);
+    sands.add(bbqBurger);
+    sands.add(beanBurger);
+    
+    
+    
+    
+    
+    
+    
+    
+    ArrayList<Food> entrees = new ArrayList<Food>();
+    Food steak = new Food("Sirloin Steak", 20.00, "entree");
+    Food chicken = new Food("Grilled Chicken", 18.00, "entree");
+    Food alfredo = new Food("Chicken Alfredo", 16.00, "entree");
+    Food spaghetti = new Food("Spaghetti and Meatballs", 12.00, "entree");
+    Food burrito = new Food("Charred Chicken Burrito", 8.00, "entree");
+    Food fish = new Food("Filet of Salmon", 23.00, "entree");
+    
+    entrees.add(steak);    
+    entrees.add(chicken);
+    entrees.add(alfredo);
+    entrees.add(spaghetti);
+    entrees.add(burrito);
+    entrees.add(fish);
+    
+    
+    ArrayList<Food> desserts = new ArrayList<Food>();
+    Food lavaCake = new Food("Molten Lava Cake", 8.99, "dessert");
+     Food cheeseCake = new Food("CheeseCake", 6.99, "dessert");
+      Food alMode = new Food("Pie al Mode", 6.99, "dessert");
+       Food expresso = new Food("Expresso", 4.99, "dessert");
+    
+       desserts.add(lavaCake);
+       desserts.add(cheeseCake);
+       desserts.add(alMode);
+       desserts.add(expresso);
+       
+       
+       ArrayList<Food> drinks = new ArrayList<Food>();
+       Food dBeer = new Food("Domestic Beer", 3.99, "drink");
+       Food iBeer = new Food("Import Beer", 4.99, "drink");
+       Food draftBeer = new Food("Draft Beer", 5.99, "drink");
+       Food wine = new Food("Glass of Wine", 7.99, "drink");
+       Food soda = new Food("Soda", 1.99, "drink");
+       Food water = new Food("Water", 0.00, "drink");
+    
+       drinks.add(dBeer);
+       drinks.add(iBeer);
+       drinks.add(draftBeer);
+       drinks.add(wine);
+       drinks.add(soda);
+       drinks.add(water);
+       
+    
+    
+    if(list == 1){
+        return apps;
+    }
+    else if(list == 2){
+        return salads;
+    }
+    else if(list == 3)
+        return sands;
+    else if(list == 4){
+        return entrees;
+    }
+    else if(list == 5){
+        return desserts;
+    }
+    else
+        return drinks;
+   
+    }
+    
+    
+  
     /**
      * @param args the command line arguments
      */
@@ -1435,6 +1626,27 @@ public class POS extends javax.swing.JFrame {
         }
         //</editor-fold>
         
+        //adding food to models
+       for(int i = 0; i < appsList.size(); i++){
+           appModel.addElement(appsList.get(i).getName() + "  " + appsList.get(i).getPrice());
+       }
+       for(int i = 0; i < saladsList.size(); i++){
+           saladModel.addElement(saladsList.get(i).getName() + "  " + saladsList.get(i).getPrice());
+       }
+       for(int i = 0; i < sandwhichesList.size(); i++){
+           sandModel.addElement(sandwhichesList.get(i).getName() + "  " + sandwhichesList.get(i).getPrice());
+       }
+       for(int i = 0; i < entreesList.size(); i++){
+           entreeModel.addElement(entreesList.get(i).getName() + "  " + entreesList.get(i).getPrice());
+       }
+       for(int i = 0; i < dessertsList.size(); i++){
+           dessertModel.addElement(dessertsList.get(i).getName() + "  " + dessertsList.get(i).getPrice());
+       }
+         for(int i = 0; i < drinksList.size(); i++){
+           drinkModel.addElement(drinksList.get(i).getName() + "  " + drinksList.get(i).getPrice());
+       }
+       orderModel.addElement("test please show up");
+       
         POS restaurant = new POS();                         //instantiate the class
         
         /* Create and display the form */
@@ -1453,11 +1665,12 @@ public class POS extends javax.swing.JFrame {
     private javax.swing.JPanel Payment;
     private javax.swing.JPanel Tables;
     private javax.swing.JButton accept;
+    private javax.swing.JButton addToOderBtn;
     private javax.swing.JToggleButton allSeat;
     private javax.swing.JPanel allergies;
     private javax.swing.JScrollPane appList;
+    private javax.swing.JList<String> appetizerList;
     private javax.swing.JPanel appetizers;
-    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnAddCharge;
     private javax.swing.JButton btnAddNoCharge;
     private javax.swing.JButton btnAllergy;
@@ -1494,25 +1707,22 @@ public class POS extends javax.swing.JFrame {
     private javax.swing.JLabel changeDue;
     private javax.swing.JPanel creditCard;
     private javax.swing.JScrollPane currentOrder;
-    private javax.swing.JScrollPane dessertList;
+    private javax.swing.JList<String> desserList;
+    private javax.swing.JScrollPane dessertPane;
     private javax.swing.JPanel desserts;
-    private javax.swing.JScrollPane drinkList;
+    private javax.swing.JList<String> drinkList;
+    private javax.swing.JScrollPane drinkPane;
     private javax.swing.JPanel drinks;
     private javax.swing.JPanel dynamicPanel;
     private javax.swing.JPanel emptyCash;
-    private javax.swing.JScrollPane entreeList;
+    private javax.swing.JList<String> entreeList;
+    private javax.swing.JScrollPane entreePane;
     private javax.swing.JPanel entrees;
     private javax.swing.JButton exitTables;
     private javax.swing.JTextField input;
     private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList10;
     private javax.swing.JList<String> jList11;
-    private javax.swing.JList<String> jList2;
-    private javax.swing.JList<String> jList3;
-    private javax.swing.JList<String> jList4;
-    private javax.swing.JList<String> jList5;
-    private javax.swing.JList<String> jList6;
-    private javax.swing.JList<String> jList7;
     private javax.swing.JList<String> jList8;
     private javax.swing.JList<String> jList9;
     private javax.swing.JScrollPane jScrollPane1;
@@ -1531,9 +1741,11 @@ public class POS extends javax.swing.JFrame {
     private javax.swing.JToggleButton s2;
     private javax.swing.JToggleButton s3;
     private javax.swing.JToggleButton s4;
-    private javax.swing.JScrollPane saladList;
+    private javax.swing.JList<String> saladList;
+    private javax.swing.JScrollPane saladPane;
     private javax.swing.JPanel salads;
-    private javax.swing.JScrollPane sandList;
+    private javax.swing.JList<String> sandwhichList;
+    private javax.swing.JScrollPane sandwhichPane;
     private javax.swing.JPanel sandwiches;
     private javax.swing.JToggleButton seat1;
     private javax.swing.JToggleButton seat2;
