@@ -16,11 +16,14 @@ public class Order {
 
 
     }
-    public void addToOrder(int tableId, Food tempFood, int customerId){
+    public void addToOrder(int tableId, Food tempFood){
      this.order.add(tempFood);
     }
   
     public ArrayList<Food> getOrder(){
         return order;
+    }
+    public void updateOrder(ArrayList<Food> tempList){
+        this.order = tempList;
     }
 }

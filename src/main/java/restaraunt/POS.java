@@ -19,6 +19,8 @@ import javax.swing.JTextField;
  */
 public class POS extends javax.swing.JFrame {
 
+    public static ArrayList<Food> emptyList = new ArrayList<Food>();
+  
 public static ArrayList<Food> appsList = initFoodList(1);
 public static ArrayList<Food> saladsList = initFoodList(2);
 public static ArrayList<Food> sandwhichesList = initFoodList(3);
@@ -34,8 +36,55 @@ public static DefaultListModel sandModel = new DefaultListModel();
 public static DefaultListModel entreeModel = new DefaultListModel();
 public static DefaultListModel dessertModel = new DefaultListModel();
 public static DefaultListModel drinkModel = new DefaultListModel();
-
 public static DefaultListModel orderModel = new DefaultListModel();
+
+//table 10 declarations
+public static Table table10 = new Table(10,10,4);
+public static Order table10Seat1Order = new Order(10, emptyList, 1);
+public static Order table10Seat2Order = new Order(10, emptyList, 2);
+public static Order table10Seat3Order = new Order(10, emptyList, 3);
+public static Order table10Seat4Order = new Order(10, emptyList, 4);
+
+//table 20 declarations
+public static Table table20 = new Table(20,20,4);
+public static Order table20Seat1Order = new Order(20, emptyList, 1);
+public static Order table20Seat2Order = new Order(20, emptyList, 2);
+public static Order table20Seat3Order = new Order(20, emptyList, 3);
+public static Order table20Seat4Order = new Order(20, emptyList, 4);
+
+//table 30 declarations
+public static Table table30 = new Table(30,30,4);
+public static Order table30Seat1Order = new Order(30, emptyList, 1);
+public static Order table30Seat2Order = new Order(30, emptyList, 2);
+public static Order table30Seat3Order = new Order(30, emptyList, 3);
+public static Order table30Seat4Order = new Order(30, emptyList, 4);
+
+//table 40 declarations
+public static Table table40 = new Table(40,40,4);
+public static Order table40Seat1Order = new Order(40, emptyList, 1);
+public static Order table40Seat2Order = new Order(40, emptyList, 2);
+public static Order table40Seat3Order = new Order(40, emptyList, 3);
+public static Order table40Seat4Order = new Order(40, emptyList, 4);
+//table 50 declarations
+public static Table table50 = new Table(50,50,4);
+public static Order table50Seat1Order = new Order(50, emptyList, 1);
+public static Order table50Seat2Order = new Order(50, emptyList, 2);
+public static Order table50Seat3Order = new Order(50, emptyList, 3);
+public static Order table50Seat4Order = new Order(50, emptyList, 4);
+
+//table 60 declarations
+public static Table table60 = new Table(60,60,4);
+public static Order table60Seat1Order = new Order(60, emptyList, 1);
+public static Order table60Seat2Order = new Order(60, emptyList, 2);
+public static Order table60Seat3Order = new Order(60, emptyList, 3);
+public static Order table60Seat4Order = new Order(60, emptyList, 4);
+//table 61 declarations
+public static Table table61 = new Table(61,61,4);
+public static Order table61Seat1Order = new Order(61, emptyList, 1);
+public static Order table61Seat2Order = new Order(61, emptyList, 2);
+public static Order table61Seat3Order = new Order(61, emptyList, 3);
+public static Order table61Seat4Order = new Order(61, emptyList, 4);
+
 
 
 
@@ -45,7 +94,8 @@ public static int currentSeat = 0;
 
 public static Table currentTable = new Table(1,1,4);
 public static Order currentOrderFinal;
-public static Order seat1Order;
+
+
 
     /**
      * Creates new form POS
@@ -150,7 +200,7 @@ public static Order seat1Order;
         Payment = new javax.swing.JPanel();
         seatPayment = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jList11 = new javax.swing.JList<>();
+        paymentList = new javax.swing.JList<>();
         Pay = new javax.swing.JPanel();
         emptyCash = new javax.swing.JPanel();
         creditCard = new javax.swing.JPanel();
@@ -306,6 +356,11 @@ public static Order seat1Order;
 
         jList1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jList1.setModel(orderModel);
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
         currentOrder.setViewportView(jList1);
 
         javax.swing.GroupLayout orderPanelLayout = new javax.swing.GroupLayout(orderPanel);
@@ -345,6 +400,11 @@ public static Order seat1Order;
 
         saladList.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         saladList.setModel(saladModel);
+        saladList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                saladListMouseClicked(evt);
+            }
+        });
         saladPane.setViewportView(saladList);
 
         javax.swing.GroupLayout saladsLayout = new javax.swing.GroupLayout(salads);
@@ -362,6 +422,11 @@ public static Order seat1Order;
 
         sandwhichList.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         sandwhichList.setModel(sandModel);
+        sandwhichList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sandwhichListMouseClicked(evt);
+            }
+        });
         sandwhichPane.setViewportView(sandwhichList);
 
         javax.swing.GroupLayout sandwichesLayout = new javax.swing.GroupLayout(sandwiches);
@@ -379,6 +444,11 @@ public static Order seat1Order;
 
         entreeList.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         entreeList.setModel(entreeModel);
+        entreeList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                entreeListMouseClicked(evt);
+            }
+        });
         entreePane.setViewportView(entreeList);
 
         javax.swing.GroupLayout entreesLayout = new javax.swing.GroupLayout(entrees);
@@ -396,6 +466,11 @@ public static Order seat1Order;
 
         desserList.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         desserList.setModel(dessertModel);
+        desserList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                desserListMouseClicked(evt);
+            }
+        });
         dessertPane.setViewportView(desserList);
 
         javax.swing.GroupLayout dessertsLayout = new javax.swing.GroupLayout(desserts);
@@ -413,6 +488,11 @@ public static Order seat1Order;
 
         drinkList.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         drinkList.setModel(drinkModel);
+        drinkList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                drinkListMouseClicked(evt);
+            }
+        });
         drinkPane.setViewportView(drinkList);
 
         javax.swing.GroupLayout drinksLayout = new javax.swing.GroupLayout(drinks);
@@ -590,6 +670,11 @@ public static Order seat1Order;
         Order.add(btnAllergy, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 640, 170, 60));
 
         btnVoid.setText("Void");
+        btnVoid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoidActionPerformed(evt);
+            }
+        });
         Order.add(btnVoid, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 290, 170, 50));
 
         btnOrder.setText("Order");
@@ -732,7 +817,7 @@ public static Order seat1Order;
         seatPayment.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         seatPayment.setLayout(new java.awt.CardLayout());
 
-        jScrollPane4.setViewportView(jList11);
+        jScrollPane4.setViewportView(paymentList);
 
         seatPayment.add(jScrollPane4, "card2");
 
@@ -1086,7 +1171,7 @@ public static Order seat1Order;
         mainPanel.repaint();
         mainPanel.revalidate();
         
-        currentTable = new Table(30,30,4);
+        currentTable = table30;
         
         
         
@@ -1201,6 +1286,12 @@ public static Order seat1Order;
         dynamicPanel.repaint();
         dynamicPanel.revalidate();
       
+        orderModel.clear();
+        ArrayList<Food> tempList = currentOrderFinal.getOrder();
+        for(int i = 0; i < tempList.size(); i++){
+            orderModel.addElement(tempList.get(i).getName() + " " + tempList.get(i).getPrice());
+        }
+        
     }//GEN-LAST:event_btnOrderActionPerformed
 
     private void btnCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCardActionPerformed
@@ -1214,9 +1305,7 @@ public static Order seat1Order;
         //let buttons be enabled when toggle button is pushed, and disable when it is no longer selected
         orderModel.clear();
         currentSeat = 1;
-        ArrayList<Food> blankOrderList = new ArrayList<Food>();
-       seat1Order = new Order(currentTable.getId(),blankOrderList, currentSeat);
-       
+        
     
         if(s1.isSelected()){
             enableButtons();                        //enable menu buttons
@@ -1224,13 +1313,19 @@ public static Order seat1Order;
             s2.setEnabled(false);
             s3.setEnabled(false);
             s4.setEnabled(false);
+           currentOrderFinal = table30Seat1Order;
+            
+        
         }
         else{
+            
             disableButtons();                       //disable menu buttons
             //enable other toggle buttons
             s2.setEnabled(true);
             s3.setEnabled(true);
             s4.setEnabled(true);
+            
+            table30Seat1Order.updateOrder(currentOrderFinal.getOrder());
         }
     }//GEN-LAST:event_s1ActionPerformed
 
@@ -1325,6 +1420,7 @@ public static Order seat1Order;
 
     private void seat1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat1ActionPerformed
 
+        
         if(seat1.isSelected()){
             allSeat.setEnabled(false);
         }
@@ -1452,25 +1548,90 @@ public static Order seat1Order;
     }//GEN-LAST:event_appetizerListMouseClicked
 
     private void addToOderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToOderBtnActionPerformed
+        
         Food tempFood = new Food("Temp",0.0,"none");
         
-        if(type.equals("app")){
-             tempFood = appsList.get(currentIndex);
-            addToOrderList.add(tempFood);
-            //tempFoodList.add(appsList.get(currentIndex));
+        switch(type){
+            case "app":
+            {
+                 tempFood = appsList.get(currentIndex);
+                 break;
+            }
+            case "salad":
+            {
+                 tempFood = saladsList.get(currentIndex);
+                 break;
+            }
+            case "sandwhich":
+            {
+                 tempFood = sandwhichesList.get(currentIndex);
+                 break;
+            }
+            case "entree":
+            {
+                 tempFood = entreesList.get(currentIndex);
+                 break;
+            }
+            case "dessert":
+            {
+                 tempFood = dessertsList.get(currentIndex);
+                 break;
+            }
+            case "drink":
+            {
+                 tempFood = drinksList.get(currentIndex);
+                 break;
+            }
+            
         }
-        
-        
-     if(s1.isSelected()){
-         seat1Order.addToOrder(currentTable.getId(), tempFood, 1);
-     }
-     ArrayList<Food> tempOrderList = seat1Order.getOrder();
-     for(int d = 0; d < tempOrderList.size(); d++){
-         orderModel.addElement(tempOrderList.get(d).getName() + " " + tempOrderList.get(d).getPrice());
+             addToOrderList.add(tempFood);
+             currentOrderFinal.addToOrder(currentTable.getId(), tempFood);
          
-     }
+            
+        
+      
         
     }//GEN-LAST:event_addToOderBtnActionPerformed
+
+    private void saladListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saladListMouseClicked
+        currentIndex = saladList.getSelectedIndex();
+             type = "salad";
+    }//GEN-LAST:event_saladListMouseClicked
+
+    private void sandwhichListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sandwhichListMouseClicked
+        currentIndex = sandwhichList.getSelectedIndex();
+             type = "sandwhich";
+    }//GEN-LAST:event_sandwhichListMouseClicked
+
+    private void entreeListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_entreeListMouseClicked
+        currentIndex = entreeList.getSelectedIndex();
+             type = "entree";
+    }//GEN-LAST:event_entreeListMouseClicked
+
+    private void desserListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_desserListMouseClicked
+        currentIndex = desserList.getSelectedIndex();
+             type = "dessert";
+    }//GEN-LAST:event_desserListMouseClicked
+
+    private void drinkListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drinkListMouseClicked
+        currentIndex = drinkList.getSelectedIndex();
+             type = "drink";
+    }//GEN-LAST:event_drinkListMouseClicked
+
+    private void btnVoidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoidActionPerformed
+            if(type == "order"){
+                currentOrderFinal.getOrder().remove(currentIndex);
+                
+            }
+            dynamicPanel.repaint();
+            dynamicPanel.revalidate();
+       
+    }//GEN-LAST:event_btnVoidActionPerformed
+
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+       currentIndex = jList1.getSelectedIndex();
+       type = "order";
+    }//GEN-LAST:event_jList1MouseClicked
     
     public static ArrayList<Food> initFoodList(int list){
         
@@ -1722,7 +1883,6 @@ public static Order seat1Order;
     private javax.swing.JTextField input;
     private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList10;
-    private javax.swing.JList<String> jList11;
     private javax.swing.JList<String> jList8;
     private javax.swing.JList<String> jList9;
     private javax.swing.JScrollPane jScrollPane1;
@@ -1736,6 +1896,7 @@ public static Order seat1Order;
     private javax.swing.JPanel orderPanel;
     private javax.swing.JTextField payIn;
     private javax.swing.JPanel payInCash;
+    private javax.swing.JList<String> paymentList;
     private javax.swing.JButton runReport;
     private javax.swing.JToggleButton s1;
     private javax.swing.JToggleButton s2;
