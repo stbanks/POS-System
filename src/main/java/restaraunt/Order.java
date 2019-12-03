@@ -16,7 +16,7 @@ public class Order {
 
 
     }
-    public void addToOrder(int tableId, Food tempFood){
+    public void addToOrder(Food tempFood){
      this.order.add(tempFood);
     }
   
