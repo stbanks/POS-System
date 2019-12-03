@@ -16,8 +16,8 @@ public class Order {
 
 
     }
-    public void addToOrder(int tableId, Food tempList, int customerId){
-     
+    public void addToOrder(int tableId, Food tempFood, int customerId){
+     this.order.add(tempFood);
     }
   
     public ArrayList<Food> getOrder(){

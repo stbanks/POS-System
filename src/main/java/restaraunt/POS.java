@@ -26,6 +26,7 @@ public static ArrayList<Food> entreesList = initFoodList(4);
 public static ArrayList<Food> dessertsList = initFoodList(5);
 public static ArrayList<Food> drinksList  = initFoodList(10);
 
+public static ArrayList<Food> addToOrderList = new ArrayList<Food>();
 
 public  static DefaultListModel appModel = new DefaultListModel();
 public static DefaultListModel saladModel = new DefaultListModel();
@@ -37,12 +38,15 @@ public static DefaultListModel drinkModel = new DefaultListModel();
 public static DefaultListModel orderModel = new DefaultListModel();
 
 
-public static int currentIndex = 0;
+
+public static int currentIndex = 100;
 public static String type = "";
 public static int currentSeat = 0;
 
 public static Table currentTable = new Table(1,1,4);
 public static Order currentOrderFinal;
+public static Order seat1Order;
+
     /**
      * Creates new form POS
      */
@@ -300,6 +304,7 @@ public static Order currentOrderFinal;
         dynamicPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         dynamicPanel.setLayout(new java.awt.CardLayout());
 
+        jList1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jList1.setModel(orderModel);
         currentOrder.setViewportView(jList1);
 
@@ -307,9 +312,7 @@ public static Order currentOrderFinal;
         orderPanel.setLayout(orderPanelLayout);
         orderPanelLayout.setHorizontalGroup(
             orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(orderPanelLayout.createSequentialGroup()
-                .addGap(690, 690, 690)
-                .addComponent(currentOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE))
+            .addComponent(currentOrder, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
         );
         orderPanelLayout.setVerticalGroup(
             orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -331,7 +334,7 @@ public static Order currentOrderFinal;
         appetizers.setLayout(appetizersLayout);
         appetizersLayout.setHorizontalGroup(
             appetizersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(appList, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
+            .addComponent(appList, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
         );
         appetizersLayout.setVerticalGroup(
             appetizersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,7 +351,7 @@ public static Order currentOrderFinal;
         salads.setLayout(saladsLayout);
         saladsLayout.setHorizontalGroup(
             saladsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(saladPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
+            .addComponent(saladPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
         );
         saladsLayout.setVerticalGroup(
             saladsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -365,7 +368,7 @@ public static Order currentOrderFinal;
         sandwiches.setLayout(sandwichesLayout);
         sandwichesLayout.setHorizontalGroup(
             sandwichesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sandwhichPane, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
+            .addComponent(sandwhichPane, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
         );
         sandwichesLayout.setVerticalGroup(
             sandwichesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -382,7 +385,7 @@ public static Order currentOrderFinal;
         entrees.setLayout(entreesLayout);
         entreesLayout.setHorizontalGroup(
             entreesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(entreePane, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
+            .addComponent(entreePane, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
         );
         entreesLayout.setVerticalGroup(
             entreesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -399,7 +402,7 @@ public static Order currentOrderFinal;
         desserts.setLayout(dessertsLayout);
         dessertsLayout.setHorizontalGroup(
             dessertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dessertPane, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
+            .addComponent(dessertPane, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
         );
         dessertsLayout.setVerticalGroup(
             dessertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -416,7 +419,7 @@ public static Order currentOrderFinal;
         drinks.setLayout(drinksLayout);
         drinksLayout.setHorizontalGroup(
             drinksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(drinkPane, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
+            .addComponent(drinkPane, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
         );
         drinksLayout.setVerticalGroup(
             drinksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -909,6 +912,9 @@ public static Order currentOrderFinal;
     
     private void disableButtons(){
         //disable the buttons on the order panel until a toggle button is enabled
+        btnOrder.setEnabled(false);
+        addToOderBtn.setEnabled(false);
+        btnVoid.setEnabled(false);
         btnApps.setEnabled(false);
         btnSalad.setEnabled(false);
         btnSandwich.setEnabled(false);
@@ -922,6 +928,9 @@ public static Order currentOrderFinal;
     
     private void enableButtons(){
         //enable the buttons on the order panel while a toggle button is enabled
+         btnOrder.setEnabled(true);
+        addToOderBtn.setEnabled(true);
+        btnVoid.setEnabled(true);
         btnApps.setEnabled(true);
         btnSalad.setEnabled(true);
         btnSandwich.setEnabled(true);
@@ -1203,14 +1212,12 @@ public static Order currentOrderFinal;
 
     private void s1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_s1ActionPerformed
         //let buttons be enabled when toggle button is pushed, and disable when it is no longer selected
+        orderModel.clear();
         currentSeat = 1;
         ArrayList<Food> blankOrderList = new ArrayList<Food>();
-        Food fakeFood = new Food("jakefood",2.00,"jake");
-        blankOrderList.add(fakeFood);
-        
-        
-       currentOrderFinal = new Order(currentTable.getId(),blankOrderList, currentSeat);
+       seat1Order = new Order(currentTable.getId(),blankOrderList, currentSeat);
        
+    
         if(s1.isSelected()){
             enableButtons();                        //enable menu buttons
             //disable other toggle buttons
@@ -1445,11 +1452,23 @@ public static Order currentOrderFinal;
     }//GEN-LAST:event_appetizerListMouseClicked
 
     private void addToOderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToOderBtnActionPerformed
-        ArrayList<Food> tempFoodList = new ArrayList<Food>();
+        Food tempFood = new Food("Temp",0.0,"none");
+        
         if(type.equals("app")){
-            tempFoodList.add(appsList.get(currentIndex));
+             tempFood = appsList.get(currentIndex);
+            addToOrderList.add(tempFood);
+            //tempFoodList.add(appsList.get(currentIndex));
         }
-     orderModel.addElement("Test");
+        
+        
+     if(s1.isSelected()){
+         seat1Order.addToOrder(currentTable.getId(), tempFood, 1);
+     }
+     ArrayList<Food> tempOrderList = seat1Order.getOrder();
+     for(int d = 0; d < tempOrderList.size(); d++){
+         orderModel.addElement(tempOrderList.get(d).getName() + " " + tempOrderList.get(d).getPrice());
+         
+     }
         
     }//GEN-LAST:event_addToOderBtnActionPerformed
     
