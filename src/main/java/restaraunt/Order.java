@@ -24,6 +24,12 @@ public class Order {
         return order;
     }
     public void updateOrder(ArrayList<Food> tempList){
+        
         this.order = tempList;
     }
+    
+    public void clearOrder(){
+        this.order.clear();
+    }
+            
 }

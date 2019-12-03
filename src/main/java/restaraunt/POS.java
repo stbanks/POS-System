@@ -1163,6 +1163,8 @@ public static Order currentOrderFinal;
         mainPanel.add(Order);
         mainPanel.repaint();
         mainPanel.revalidate();
+        
+        currentTable = table40;
     }//GEN-LAST:event_tbl40ActionPerformed
 
     private void tbl30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbl30ActionPerformed
@@ -1182,6 +1184,8 @@ public static Order currentOrderFinal;
         mainPanel.add(Order);
         mainPanel.repaint();
         mainPanel.revalidate();
+        
+        currentTable = table20;
     }//GEN-LAST:event_tbl20ActionPerformed
 
     private void tbl10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbl10ActionPerformed
@@ -1189,6 +1193,8 @@ public static Order currentOrderFinal;
         mainPanel.add(Order);
         mainPanel.repaint();
         mainPanel.revalidate();
+        
+        currentTable = table10;
     }//GEN-LAST:event_tbl10ActionPerformed
 
     private void tbl60ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbl60ActionPerformed
@@ -1196,6 +1202,8 @@ public static Order currentOrderFinal;
         mainPanel.add(Order);
         mainPanel.repaint();
         mainPanel.revalidate();
+        
+        currentTable = table60;
     }//GEN-LAST:event_tbl60ActionPerformed
 
     private void tbl61ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbl61ActionPerformed
@@ -1203,6 +1211,8 @@ public static Order currentOrderFinal;
         mainPanel.add(Order);
         mainPanel.repaint();
         mainPanel.revalidate();
+        
+        currentTable = table61;
     }//GEN-LAST:event_tbl61ActionPerformed
 
     private void exitTablesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitTablesActionPerformed
@@ -1288,6 +1298,158 @@ public static Order currentOrderFinal;
       
         orderModel.clear();
         ArrayList<Food> tempList = currentOrderFinal.getOrder();
+        if(s1.isSelected()){
+        switch(currentTable.getId()){
+            case 10:{
+                tempList = table10Seat1Order.getOrder();
+                break;
+            }
+            case 20:{
+                tempList = table20Seat1Order.getOrder();
+                break;
+            }
+            case 30:{
+                tempList = table30Seat1Order.getOrder();
+                System.out.println("entered case 30 for seat 1");
+                for(int i = 0; i < table30Seat1Order.getOrder().size(); i++){
+                    System.out.println(table30Seat1Order.getOrder().get(i).getName());
+                }
+                break;
+            }
+            case 40:{
+                tempList = table40Seat1Order.getOrder();
+                break;
+            }
+            case 50:{
+                tempList = table50Seat1Order.getOrder();
+                break;
+            }
+            case 60:{
+                tempList = table60Seat1Order.getOrder();
+                break;
+            }
+            case 61:{
+                tempList = table61Seat1Order.getOrder();
+                break;
+            }
+            
+        }
+        }
+         if(s2.isSelected()){
+        switch(currentTable.getId()){
+            case 10:{
+                tempList = table10Seat2Order.getOrder();
+                break;
+            }
+            case 20:{
+                tempList = table20Seat2Order.getOrder();
+                break;
+            }
+            case 30:{
+                tempList = table30Seat2Order.getOrder();
+                System.out.println("entered case 30 for seat 2");
+                for(int i = 0; i < table30Seat2Order.getOrder().size(); i++){
+                    System.out.println(table30Seat2Order.getOrder().get(i).getName());
+                }
+                break;
+            }
+            case 40:{
+                tempList = table40Seat2Order.getOrder();
+                break;
+            }
+            case 50:{
+                tempList = table50Seat2Order.getOrder();
+                break;
+            }
+            case 60:{
+                tempList = table60Seat2Order.getOrder();
+                break;
+            }
+            case 61:{
+                tempList = table61Seat2Order.getOrder();
+                break;
+            }
+            
+        }
+        
+        }
+         if(s3.isSelected()){
+        switch(currentTable.getId()){
+            case 10:{
+                tempList = table10Seat3Order.getOrder();
+                break;
+            }
+            case 20:{
+                tempList = table20Seat3Order.getOrder();
+                break;
+            }
+            case 30:{
+                tempList = table30Seat3Order.getOrder();
+                System.out.println("entered case 30 for seat 3");
+                for(int i = 0; i < table30Seat3Order.getOrder().size(); i++){
+                    System.out.println(table30Seat3Order.getOrder().get(i).getName());
+                }
+                break;
+            }
+            case 40:{
+                tempList = table40Seat3Order.getOrder();
+                break;
+            }
+            case 50:{
+                tempList = table50Seat3Order.getOrder();
+                break;
+            }
+            case 60:{
+                tempList = table60Seat3Order.getOrder();
+                break;
+            }
+            case 61:{
+                tempList = table61Seat3Order.getOrder();
+                break;
+            }
+        }
+        
+        }
+         if(s4.isSelected()){
+        switch(currentTable.getId()){
+            case 10:{
+                tempList = table10Seat4Order.getOrder();
+                break;
+            }
+            case 20:{
+                tempList = table20Seat4Order.getOrder();
+                break;
+            }
+            case 30:{
+                tempList = table30Seat4Order.getOrder();
+                System.out.println("entered case 30 for seat 4");
+                for(int i = 0; i < table30Seat4Order.getOrder().size(); i++){
+                    System.out.println(table30Seat4Order.getOrder().get(i).getName());
+                }
+                
+                break;
+            }
+            case 40:{
+                tempList = table40Seat4Order.getOrder();
+                break;
+            }
+            case 50:{
+                tempList = table50Seat4Order.getOrder();
+                break;
+            }
+            case 60:{
+                tempList = table60Seat4Order.getOrder();
+                break;
+            }
+            case 61:{
+                tempList = table61Seat4Order.getOrder();
+                break;
+            }
+            
+        }
+        
+        }
+        
         for(int i = 0; i < tempList.size(); i++){
             orderModel.addElement(tempList.get(i).getName() + " " + tempList.get(i).getPrice());
         }
@@ -1313,7 +1475,39 @@ public static Order currentOrderFinal;
             s2.setEnabled(false);
             s3.setEnabled(false);
             s4.setEnabled(false);
-           currentOrderFinal = table30Seat1Order;
+            switch(currentTable.getId()){
+                case 10:{
+                    currentOrderFinal = table10Seat1Order;
+                    break;
+                }
+                case 20:{
+                    currentOrderFinal = table20Seat1Order;
+                    break;
+                }
+                case 30:{
+                   currentOrderFinal = table30Seat1Order;
+                    System.out.println("Entered case 30 for seat 1 Selection");
+                    
+                    break;
+                }
+                case 40:{
+                    currentOrderFinal = table40Seat1Order;
+                    break;
+                }
+                case 50:{
+                    currentOrderFinal = table50Seat1Order;
+                    break;
+                }
+                case 60:{
+                    currentOrderFinal = table60Seat1Order;
+                    break;
+                }
+                case 61:{
+                    currentOrderFinal = table61Seat1Order;
+                    break;
+                }
+            }
+           
             
         
         }
@@ -1324,19 +1518,88 @@ public static Order currentOrderFinal;
             s2.setEnabled(true);
             s3.setEnabled(true);
             s4.setEnabled(true);
+            switch(currentTable.getId()){
+                case 10:{
+                    table10Seat1Order.updateOrder(currentOrderFinal.getOrder());
+                    break;
+                }
+                case 20:{
+                    table20Seat1Order.updateOrder(currentOrderFinal.getOrder());
+                    break;
+                }
+                case 30:{
+                    System.out.println("Entered case 30 for seat 1 Deselection");     
+                    currentOrderFinal.clearOrder();
+                    break;
+                }
+                case 40:{
+                    table40Seat1Order.updateOrder(currentOrderFinal.getOrder());
+                    break;
+                }
+                case 50:{
+                    table50Seat1Order.updateOrder(currentOrderFinal.getOrder());
+                    break;
+                }
+                case 60:{
+                    table60Seat1Order.updateOrder(currentOrderFinal.getOrder());
+                    break;
+                }
+                case 61:{
+                    table61Seat1Order.updateOrder(currentOrderFinal.getOrder());
+                    break;
+                }
+            }
+            orderModel.clear();
+            currentOrderFinal.updateOrder(emptyList);
+            System.out.println("should have cleared current order");
+                    for(int i = 0; i < currentOrderFinal.getOrder().size(); i++){
+                        System.out.println("Order " + currentOrderFinal.getOrder().get(i).getName());
+                    }
             
-            table30Seat1Order.updateOrder(currentOrderFinal.getOrder());
+           
         }
     }//GEN-LAST:event_s1ActionPerformed
 
     private void s2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_s2ActionPerformed
         //let buttons be enabled when toggle button is pushed, and disable when it is no longer selected
+         orderModel.clear();
+        currentSeat = 2;
         if(s2.isSelected()){
             enableButtons();                        //enable menu buttons
             //disable other toggle buttons
             s1.setEnabled(false);
             s3.setEnabled(false);
             s4.setEnabled(false);
+            switch(currentTable.getId()){
+                case 10:{
+                    currentOrderFinal = table10Seat2Order;
+                    break;
+                }
+                case 20:{
+                    currentOrderFinal = table20Seat2Order;
+                    break;
+                }
+                case 30:{
+                    currentOrderFinal = table30Seat2Order;
+                    break;
+                }
+                case 40:{
+                    currentOrderFinal = table40Seat2Order;
+                    break;
+                }
+                case 50:{
+                    currentOrderFinal = table50Seat2Order;
+                    break;
+                }
+                case 60:{
+                    currentOrderFinal = table60Seat2Order;
+                    break;
+                }
+                case 61:{
+                    currentOrderFinal = table61Seat2Order;
+                    break;
+                }
+            }
             
            
         }
@@ -1346,6 +1609,38 @@ public static Order currentOrderFinal;
             s1.setEnabled(true);
             s3.setEnabled(true);
             s4.setEnabled(true);
+             switch(currentTable.getId()){
+                case 10:{
+                    table10Seat2Order.updateOrder(currentOrderFinal.getOrder());
+                    break;
+                }
+                case 20:{
+                    table20Seat2Order.updateOrder(currentOrderFinal.getOrder());
+                    break;
+                }
+                case 30:{
+                     table30Seat2Order.updateOrder(currentOrderFinal.getOrder());
+                    break;
+                }
+                case 40:{
+                    table40Seat2Order.updateOrder(currentOrderFinal.getOrder());
+                    break;
+                }
+                case 50:{
+                    table50Seat2Order.updateOrder(currentOrderFinal.getOrder());
+                    break;
+                }
+                case 60:{
+                    table60Seat2Order.updateOrder(currentOrderFinal.getOrder());
+                    break;
+                }
+                case 61:{
+                    table61Seat2Order.updateOrder(currentOrderFinal.getOrder());
+                    break;
+                }
+            }
+             orderModel.clear();
+             currentOrderFinal.updateOrder(emptyList);
         }
     }//GEN-LAST:event_s2ActionPerformed
 
@@ -1584,11 +1879,50 @@ public static Order currentOrderFinal;
             }
             
         }
+        
              addToOrderList.add(tempFood);
              currentOrderFinal.addToOrder(currentTable.getId(), tempFood);
+             if(s1.isSelected()){
+        switch(currentTable.getId()){
+            case 10:{
+                table10Seat1Order.updateOrder(currentOrderFinal.getOrder());
+                break;
+            }
+            case 20:{
+                table20Seat1Order.updateOrder(currentOrderFinal.getOrder());
+                break;
+            }
+            case 30:{
+                for(int i =0; i < currentOrderFinal.getOrder().size(); i++){
+                    System.out.println(currentOrderFinal.getOrder().get(i).getName());
+                }
+                table30Seat1Order.updateOrder(currentOrderFinal.getOrder());
+                 for(int d =0; d < table30Seat1Order.getOrder().size(); d++){
+                    System.out.println(currentOrderFinal.getOrder().get(d).getName());
+                }
+                break;
+            }
+            case 40:{
+                //tempList = table40Seat1Order.getOrder();
+                break;
+            }
+            case 50:{
+                //tempList = table50Seat1Order.getOrder();
+                break;
+            }
+            case 60:{
+               // tempList = table60Seat1Order.getOrder();
+                break;
+            }
+            case 61:{
+               // tempList = table61Seat1Order.getOrder();
+                break;
+            }
+            
+        }
          
             
-        
+             }
       
         
     }//GEN-LAST:event_addToOderBtnActionPerformed
