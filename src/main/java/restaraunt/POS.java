@@ -26,6 +26,8 @@ public class POS extends javax.swing.JFrame {
       public static double seat3Price = 0.0;
        public static double seat4Price = 0.0;
         public static double totalPrice = 0.0;
+        public static String changeDueFinal = "";
+        public static String creditDueFinal= "";
   
 public static ArrayList<Food> appsList = initFoodList(1);
 public static ArrayList<Food> saladsList = initFoodList(2);
@@ -44,20 +46,23 @@ public static DefaultListModel dessertModel = new DefaultListModel();
 public static DefaultListModel drinkModel = new DefaultListModel();
 public static DefaultListModel orderModel = new DefaultListModel();
 public static DefaultListModel paymentModel = new DefaultListModel();
-
+public static boolean paymentMethodChosen = false;
+public static String paymentMethod= "";
 //table 10 declarations
-public  Table table10 = new Table(10,10,4);
-public  Order table10Seat1Order = new Order(10, 1);
-public  Order table10Seat2Order = new Order(10, 2);
-public  Order table10Seat3Order = new Order(10, 3);
-public  Order table10Seat4Order = new Order(10, 4);
+public static Table table10 = new Table(10,10,4);
+public static Order table10Seat1Order = new Order(10, 1);
+public static  Order table10Seat2Order = new Order(10, 2);
+public  static Order table10Seat3Order = new Order(10, 3);
+public static Order table10Seat4Order = new Order(10, 4);
+
+public static Waiter currentWaiter = new Waiter(0101, "Temp");
 
 //table 20 declarations
-public  Table table20 = new Table(20,20,4);
-public  Order table20Seat1Order = new Order(20,1);
-public  Order table20Seat2Order = new Order(20, 2);
-public  Order table20Seat3Order = new Order(20, 3);
-public  Order table20Seat4Order = new Order(20, 4);
+public static Table table20 = new Table(20,20,4);
+public static Order table20Seat1Order = new Order(20,1);
+public static Order table20Seat2Order = new Order(20, 2);
+public static Order table20Seat3Order = new Order(20, 3);
+public static Order table20Seat4Order = new Order(20, 4);
 
 //table 30 declarations
 public  Table table30 = new Table(30,30,4);
@@ -67,30 +72,30 @@ public static Order table30Seat3Order = new Order(30, 3);
 public static  Order table30Seat4Order = new Order(30, 4);
 
 //table 40 declarations
-public  Table table40 = new Table(40,40,4);
-public  Order table40Seat1Order = new Order(40, 1);
-public  Order table40Seat2Order = new Order(40,  2);
-public  Order table40Seat3Order = new Order(40, 3);
-public  Order table40Seat4Order = new Order(40,  4);
+public static Table table40 = new Table(40,40,4);
+public static Order table40Seat1Order = new Order(40, 1);
+public static Order table40Seat2Order = new Order(40,  2);
+public static Order table40Seat3Order = new Order(40, 3);
+public static Order table40Seat4Order = new Order(40,  4);
 //table 50 declarations
-public  Table table50 = new Table(50,50,4);
-public  Order table50Seat1Order = new Order(50, 1);
-public  Order table50Seat2Order = new Order(50,  2);
-public  Order table50Seat3Order = new Order(50, 3);
-public  Order table50Seat4Order = new Order(50,  4);
+public static Table table50 = new Table(50,50,4);
+public static Order table50Seat1Order = new Order(50, 1);
+public static Order table50Seat2Order = new Order(50,  2);
+public static Order table50Seat3Order = new Order(50, 3);
+public static Order table50Seat4Order = new Order(50,  4);
 
 //table 60 declarations
-public  Table table60 = new Table(60,60,4);
-public  Order table60Seat1Order = new Order(60,  1);
-public  Order table60Seat2Order = new Order(60, 2);
-public  Order table60Seat3Order = new Order(60,  3);
-public  Order table60Seat4Order = new Order(60,4);
+public static Table table60 = new Table(60,60,4);
+public static Order table60Seat1Order = new Order(60,  1);
+public static Order table60Seat2Order = new Order(60, 2);
+public static Order table60Seat3Order = new Order(60,  3);
+public static Order table60Seat4Order = new Order(60,4);
 //table 61 declarations
-public  Table table61 = new Table(61,61,4);
-public  Order table61Seat1Order = new Order(61, 1);
-public  Order table61Seat2Order = new Order(61,  2);
-public  Order table61Seat3Order = new Order(61, 3);
-public  Order table61Seat4Order = new Order(61,  4);
+public static Table table61 = new Table(61,61,4);
+public static Order table61Seat1Order = new Order(61, 1);
+public static Order table61Seat2Order = new Order(61,  2);
+public static Order table61Seat3Order = new Order(61, 3);
+public static Order table61Seat4Order = new Order(61,  4);
 
 
 
@@ -112,9 +117,9 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
     }
     
     //double ids[] = {1289, 1863, 8246};            //stores an array of acceptable id numbers for login
-    Waiter steven = new Waiter(1289);
-    Waiter lietzy = new Waiter(1863);
-    Waiter rafael = new Waiter(8246);
+    Waiter steven = new Waiter(1289, "Steven");
+    Waiter lietzy = new Waiter(0000, "Jacob");
+    Waiter rafael = new Waiter(8246, "Raf");
     boolean stevenLog = false;                    //will flag which server is currently logged in
     boolean lietzyLog = false;                    //will flag which server is currently logged in
     boolean rafaelLog = false;                    //will flag which server is currently logged in
@@ -154,6 +159,8 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
         exitTables = new javax.swing.JButton();
         makeTable = new javax.swing.JButton();
         runReport = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         Payment = new javax.swing.JPanel();
         seatPayment = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -182,6 +189,8 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
         seat3 = new javax.swing.JToggleButton();
         seat4 = new javax.swing.JToggleButton();
         allSeat = new javax.swing.JToggleButton();
+        cashOutBtn = new javax.swing.JButton();
+        returnBtn = new javax.swing.JButton();
         Order = new javax.swing.JPanel();
         dynamicPanel = new javax.swing.JPanel();
         orderPanel = new javax.swing.JPanel();
@@ -431,7 +440,7 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
 
         makeTable.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         makeTable.setText("Make Table");
-        Tables.add(makeTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 30, 140, 50));
+        Tables.add(makeTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 80, 140, 50));
 
         runReport.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         runReport.setText("Run Report");
@@ -440,7 +449,13 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
                 runReportActionPerformed(evt);
             }
         });
-        Tables.add(runReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 150, 140, 50));
+        Tables.add(runReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 140, 140, 50));
+
+        jLabel1.setText("Hello");
+        Tables.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 20, -1, -1));
+
+        jLabel2.setText(currentWaiter.getName());
+        Tables.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 20, -1, -1));
 
         mainPanel.add(Tables, "tables");
 
@@ -605,6 +620,24 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
             }
         });
         Payment.add(allSeat, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 20, -1, -1));
+
+        cashOutBtn.setText("Confirm and Cash Out Order");
+        cashOutBtn.setToolTipText("Caution: This will clear out whatever order you have selected please ensure the customer has paid");
+        cashOutBtn.setEnabled(false);
+        cashOutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cashOutBtnActionPerformed(evt);
+            }
+        });
+        Payment.add(cashOutBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 300, 250, -1));
+
+        returnBtn.setText("Go Back\n");
+        returnBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                returnBtnActionPerformed(evt);
+            }
+        });
+        Payment.add(returnBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 330, 250, -1));
 
         mainPanel.add(Payment, "payment");
 
@@ -1127,16 +1160,19 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
         }*/
         
         if(inputIDNum == steven.getId()){
+            currentWaiter = steven;
             stevenLog = true;
             lietzyLog = false;
             rafaelLog = false;
         }
         else if(inputIDNum == lietzy.getId()){
+            currentWaiter = lietzy;
             lietzyLog = true;
             stevenLog = false;
             rafaelLog = false;
         }
         else if(inputIDNum == rafael.getId()){
+            currentWaiter = rafael;
             rafaelLog = true;
             stevenLog = false;
             lietzyLog = false;
@@ -1631,12 +1667,14 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
              paymentModel.addElement("Total : " +seat1Price);
         }
         else{
+            seat1Price = 0.0;
             allSeat.setEnabled(true);
         }
     }//GEN-LAST:event_seat1PaymentActionPerformed
 
     private void seat2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat2ActionPerformed
           paymentModel.clear();
+          
         ArrayList<Food> tempList = new ArrayList<>();
          
         if(seat2.isSelected()){
@@ -1678,6 +1716,7 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
              paymentModel.addElement("Total : " +seat2Price);
         }
         else{
+            seat2Price = 0.0;
             allSeat.setEnabled(true);
         }
     }//GEN-LAST:event_seat2ActionPerformed
@@ -1725,6 +1764,7 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
              paymentModel.addElement("Total : " +seat3Price);
         }
         else{
+            seat3Price = 0.0;
             allSeat.setEnabled(true);
         }
     }//GEN-LAST:event_seat3ActionPerformed
@@ -1773,18 +1813,82 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
             paymentModel.addElement("Total : " +seat4Price);
         }
         else{
+            seat4Price = 0.0;
             allSeat.setEnabled(true);
         }
+        
     }//GEN-LAST:event_seat4ActionPerformed
 
     private void allSeatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allSeatActionPerformed
+         paymentModel.clear();
+        ArrayList<ArrayList<Food>> wholeList = new ArrayList<>();
         if(allSeat.isSelected()){
             seat1Payment.setEnabled(false);
             seat2.setEnabled(false);
             seat3.setEnabled(false);
             seat4.setEnabled(false);
+            
+            switch(currentTable.getId()){
+                case 10 : {
+                    wholeList.add(table10Seat1Order.getOrder());
+                    wholeList.add(table10Seat2Order.getOrder());
+                    wholeList.add(table10Seat3Order.getOrder());
+                    wholeList.add(table10Seat4Order.getOrder());
+                   
+                    break;
+                }
+                case 20: {
+                    wholeList.add(table20Seat1Order.getOrder());
+                    wholeList.add(table20Seat2Order.getOrder());
+                    wholeList.add(table20Seat3Order.getOrder());
+                    wholeList.add(table20Seat4Order.getOrder());
+                    break;
+                }
+                case 30: {
+                     wholeList.add(table30Seat1Order.getOrder());
+                    wholeList.add(table30Seat2Order.getOrder());
+                    wholeList.add(table30Seat3Order.getOrder());
+                    wholeList.add(table30Seat4Order.getOrder());
+                    break;
+                }
+                case 40: {
+                     wholeList.add(table40Seat1Order.getOrder());
+                    wholeList.add(table40Seat2Order.getOrder());
+                    wholeList.add(table40Seat3Order.getOrder());
+                    wholeList.add(table40Seat4Order.getOrder());
+                    break;
+                }
+                case 50: {
+                     wholeList.add(table50Seat1Order.getOrder());
+                    wholeList.add(table50Seat2Order.getOrder());
+                    wholeList.add(table50Seat3Order.getOrder());
+                    wholeList.add(table50Seat4Order.getOrder());
+                    break;
+                }
+                case 60: {
+                     wholeList.add(table60Seat1Order.getOrder());
+                    wholeList.add(table60Seat2Order.getOrder());
+                    wholeList.add(table60Seat3Order.getOrder());
+                    wholeList.add(table60Seat4Order.getOrder());
+                    break;
+                }
+                case 61: {
+                     wholeList.add(table61Seat1Order.getOrder());
+                    wholeList.add(table61Seat2Order.getOrder());
+                    wholeList.add(table61Seat3Order.getOrder());
+                    wholeList.add(table61Seat4Order.getOrder());
+                    break;
+                }
+            }
+            for(int i = 0; i < wholeList.size(); i++){
+                for(int d = 0; d < wholeList.get(i).size(); d++){
+                    paymentModel.addElement(wholeList.get(i).get(d).getName() + " " + wholeList.get(i).get(d).getPrice());
+                    totalPrice += wholeList.get(i).get(d).getPrice();
+                }
+            }
         }
         else{
+            totalPrice = 0.0;
             seat1Payment.setEnabled(true);
             seat2.setEnabled(true);
             seat3.setEnabled(true);
@@ -1795,6 +1899,29 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
     private void acceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptActionPerformed
         double totalCashPayment = Double.parseDouble(getPayIn());
         String catchCash;
+        
+        if(seat1Payment.isSelected()){
+            changeDueFinal = String.valueOf(totalCashPayment - seat1Price);
+            change.setText(changeDueFinal);
+        }
+         if(seat2.isSelected()){
+            changeDueFinal = String.valueOf(totalCashPayment - seat2Price);
+            change.setText(changeDueFinal);
+        }
+          if(seat3.isSelected()){
+            changeDueFinal = String.valueOf(totalCashPayment - seat3Price);
+            change.setText(changeDueFinal);
+        }
+           if(seat4.isSelected()){
+            changeDueFinal = String.valueOf(totalCashPayment - seat4Price);
+            change.setText(changeDueFinal);
+        }
+            if(allSeat.isSelected()){
+            changeDueFinal = String.valueOf(totalCashPayment - totalPrice);
+            change.setText(changeDueFinal);
+        }
+            cashOutBtn.setEnabled(true);
+        /*
         
         if(stevenLog){
             catchCash = steven.handleCashPayment(totalCashPayment);
@@ -1811,18 +1938,42 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
             change.setText(catchCash);
             rafael.updateReportCash(totalCashPayment);
         }
+        */
         
     }//GEN-LAST:event_acceptActionPerformed
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
         change.setText("");
         payIn.setText("");
+        cashOutBtn.setEnabled(false);
     }//GEN-LAST:event_cancelActionPerformed
 
     private void cardAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardAcceptActionPerformed
         double totalCreditPayment = Double.parseDouble(getTip());
         String cardTotal;
         
+        if(seat1Payment.isSelected()){
+            creditDueFinal = String.valueOf(totalCreditPayment + seat1Price);
+            totalCardPayment.setText(creditDueFinal);
+        }
+         if(seat2.isSelected()){
+            creditDueFinal = String.valueOf(totalCreditPayment + seat2Price);
+            totalCardPayment.setText(creditDueFinal);
+        }
+          if(seat3.isSelected()){
+            creditDueFinal = String.valueOf(totalCreditPayment + seat3Price);
+            totalCardPayment.setText(creditDueFinal);
+        }
+           if(seat4.isSelected()){
+            changeDueFinal = String.valueOf(totalCreditPayment + seat4Price);
+            totalCardPayment.setText(creditDueFinal);
+        }
+            if(allSeat.isSelected()){
+            changeDueFinal = String.valueOf(totalCreditPayment + totalPrice);
+            totalCardPayment.setText(creditDueFinal);
+        }
+            cashOutBtn.setEnabled(true);
+        /*
         if(stevenLog){
             cardTotal = steven.handleCreditPayment(totalCreditPayment);
             totalCardPayment.setText(cardTotal);
@@ -1838,11 +1989,13 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
             totalCardPayment.setText(cardTotal);
             rafael.updateReportCard(totalCreditPayment);
         }
+        */
     }//GEN-LAST:event_cardAcceptActionPerformed
 
     private void cardCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardCancelActionPerformed
         totalCardPayment.setText("");
         tipIn.setText("");
+      cashOutBtn.setEnabled(false);
     }//GEN-LAST:event_cardCancelActionPerformed
 
     private void runReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runReportActionPerformed
@@ -2077,37 +2230,147 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
         switch(currentTable.getId()){
             case 10:{
                 
-                 table10Seat1Order.removeFromOrder(table10Seat1Order.getOrder().get(currentIndex));
+               table10Seat1Order.removeFromOrder(table10Seat1Order.getOrder().get(currentIndex));
                 break;
             }
             case 20:{
-                 table20Seat1Order.addToOrder(tempFood);
+                 table20Seat1Order.removeFromOrder(table20Seat1Order.getOrder().get(currentIndex));
                 break;
             }
             case 30:{
                 
-                table30Seat1Order.addToOrder(tempFood);   
+                table30Seat1Order.removeFromOrder(table30Seat1Order.getOrder().get(currentIndex));
                 break;
             }
             case 40:{
-                 table40Seat1Order.addToOrder(tempFood);
+               table40Seat1Order.removeFromOrder(table40Seat1Order.getOrder().get(currentIndex));
                 break;
             }
             case 50:{
-                table50Seat1Order.addToOrder(tempFood);
+               table50Seat1Order.removeFromOrder(table50Seat1Order.getOrder().get(currentIndex));
                 break;
             }
             case 60:{
-                table60Seat1Order.addToOrder(tempFood);
+                table60Seat1Order.removeFromOrder(table60Seat1Order.getOrder().get(currentIndex));
                 break;
             }
             case 61:{
-                table61Seat1Order.addToOrder(tempFood);
+               table61Seat1Order.removeFromOrder(table61Seat1Order.getOrder().get(currentIndex));
                 break;
             }
             
         }
     }
+               if(s2.isSelected()){
+        switch(currentTable.getId()){
+            case 10:{
+                
+               table10Seat2Order.removeFromOrder(table10Seat2Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 20:{
+                 table20Seat2Order.removeFromOrder(table20Seat2Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 30:{
+                
+                table30Seat2Order.removeFromOrder(table30Seat2Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 40:{
+               table40Seat2Order.removeFromOrder(table40Seat2Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 50:{
+               table50Seat2Order.removeFromOrder(table50Seat2Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 60:{
+                table60Seat2Order.removeFromOrder(table60Seat2Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 61:{
+               table61Seat2Order.removeFromOrder(table61Seat2Order.getOrder().get(currentIndex));
+                break;
+            }
+            
+        }
+    }
+               if(s3.isSelected()){
+        switch(currentTable.getId()){
+            case 10:{
+                
+               table10Seat3Order.removeFromOrder(table10Seat3Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 20:{
+                 table20Seat3Order.removeFromOrder(table20Seat3Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 30:{
+                
+                table30Seat3Order.removeFromOrder(table30Seat3Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 40:{
+               table40Seat3Order.removeFromOrder(table40Seat3Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 50:{
+               table50Seat3Order.removeFromOrder(table50Seat3Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 60:{
+                table60Seat3Order.removeFromOrder(table60Seat3Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 61:{
+               table61Seat3Order.removeFromOrder(table61Seat3Order.getOrder().get(currentIndex));
+                break;
+            }
+            
+        }
+    }
+               
+               if(s4.isSelected()){
+        switch(currentTable.getId()){
+            case 10:{
+                
+               table10Seat4Order.removeFromOrder(table10Seat4Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 20:{
+                 table20Seat4Order.removeFromOrder(table20Seat4Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 30:{
+                
+                table30Seat4Order.removeFromOrder(table30Seat4Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 40:{
+               table40Seat4Order.removeFromOrder(table40Seat4Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 50:{
+               table50Seat4Order.removeFromOrder(table50Seat4Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 60:{
+                table60Seat4Order.removeFromOrder(table60Seat4Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 61:{
+               table61Seat4Order.removeFromOrder(table61Seat4Order.getOrder().get(currentIndex));
+                break;
+            }
+            
+        }
+    }
+               
+               
+               
+               
                
                
            }
@@ -2124,6 +2387,208 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
        currentIndex = jList1.getSelectedIndex();
        type = "order";
     }//GEN-LAST:event_jList1MouseClicked
+
+    private void returnBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnBtnActionPerformed
+        mainPanel.removeAll();
+        mainPanel.add(Order);
+        mainPanel.repaint();
+        mainPanel.revalidate();
+    }//GEN-LAST:event_returnBtnActionPerformed
+
+    private void cashOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashOutBtnActionPerformed
+          if(seat1Payment.isSelected()){
+          switch(currentTable.getId()){
+            case 10:{
+                 table10Seat1Order.clearOrder();
+                break;
+            }
+            case 20:{
+                 table20Seat1Order.clearOrder();
+                break;
+            }
+            case 30:{
+                table30Seat1Order.clearOrder();
+                break;
+            }
+            case 40:{
+                 table40Seat1Order.clearOrder();
+                break;
+            }
+            case 50:{
+                table50Seat1Order.clearOrder();
+                break;
+            }
+            case 60:{
+                table60Seat1Order.clearOrder();
+                break;
+            }
+            case 61:{
+                table61Seat1Order.clearOrder();
+                break;
+            }
+            
+        }
+        
+          }
+          if(seat2.isSelected()){
+              switch(currentTable.getId()){
+            case 10:{
+                 table10Seat2Order.clearOrder();
+                break;
+            }
+            case 20:{
+                 table20Seat2Order.clearOrder();
+                break;
+            }
+            case 30:{
+                table30Seat2Order.clearOrder();
+                break;
+            }
+            case 40:{
+                 table40Seat2Order.clearOrder();
+                break;
+            }
+            case 50:{
+                table50Seat2Order.clearOrder();
+                break;
+            }
+            case 60:{
+                table60Seat2Order.clearOrder();
+                break;
+            }
+            case 61:{
+                table61Seat2Order.clearOrder();
+                break;
+            }
+            
+        }
+          }
+          if(seat3.isSelected()){
+              switch(currentTable.getId()){
+            case 10:{
+                 table10Seat3Order.clearOrder();
+                break;
+            }
+            case 20:{
+                 table20Seat3Order.clearOrder();
+                break;
+            }
+            case 30:{
+                table30Seat3Order.clearOrder();
+                break;
+            }
+            case 40:{
+                 table40Seat3Order.clearOrder();
+                break;
+            }
+            case 50:{
+                table50Seat3Order.clearOrder();
+                break;
+            }
+            case 60:{
+                table60Seat3Order.clearOrder();
+                break;
+            }
+            case 61:{
+                table61Seat3Order.clearOrder();
+                break;
+            }
+            
+        }
+          }
+          if(seat4.isSelected()){
+              switch(currentTable.getId()){
+            case 10:{
+                 table10Seat4Order.clearOrder();
+                break;
+            }
+            case 20:{
+                 table20Seat4Order.clearOrder();
+                break;
+            }
+            case 30:{
+                table30Seat4Order.clearOrder();
+                break;
+            }
+            case 40:{
+                 table40Seat4Order.clearOrder();
+                break;
+            }
+            case 50:{
+                table50Seat4Order.clearOrder();
+                break;
+            }
+            case 60:{
+                table60Seat4Order.clearOrder();
+                break;
+            }
+            case 61:{
+                table61Seat4Order.clearOrder();
+                break;
+            }
+            
+        }
+          }
+          if(allSeat.isSelected()){
+              switch(currentTable.getId()){
+            case 10:{
+                 table10Seat1Order.clearOrder();
+                 table10Seat2Order.clearOrder();
+                 table10Seat3Order.clearOrder();
+                 table10Seat4Order.clearOrder();
+                break;
+            }
+            case 20:{
+                 table20Seat1Order.clearOrder();
+                 table20Seat2Order.clearOrder();
+                 table20Seat3Order.clearOrder();
+                 table20Seat4Order.clearOrder();
+                break;
+            }
+            case 30:{
+                table30Seat1Order.clearOrder();
+                 table30Seat2Order.clearOrder();
+                 table30Seat3Order.clearOrder();
+                 table30Seat4Order.clearOrder();
+                break;
+            }
+            case 40:{
+                 table40Seat1Order.clearOrder();
+                 table40Seat2Order.clearOrder();
+                 table40Seat3Order.clearOrder();
+                 table40Seat4Order.clearOrder();
+                break;
+            }
+            case 50:{
+                table50Seat1Order.clearOrder();
+                 table50Seat2Order.clearOrder();
+                 table50Seat3Order.clearOrder();
+                 table50Seat4Order.clearOrder();
+                break;
+            }
+            case 60:{
+                table20Seat1Order.clearOrder();
+                 table20Seat2Order.clearOrder();
+                 table20Seat3Order.clearOrder();
+                 table20Seat4Order.clearOrder();
+                break;
+            }
+            case 61:{
+                table61Seat1Order.clearOrder();
+                 table61Seat2Order.clearOrder();
+                 table61Seat3Order.clearOrder();
+                 table61Seat4Order.clearOrder();
+                break;
+            }
+            
+        }
+          }
+        mainPanel.removeAll();
+        mainPanel.add(Order);
+        mainPanel.repaint();
+        mainPanel.revalidate();
+        orderModel.clear();
+    }//GEN-LAST:event_cashOutBtnActionPerformed
     
     public static ArrayList<Food> initFoodList(int list){
         
@@ -2358,6 +2823,7 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
     private javax.swing.JButton cardAccept;
     private javax.swing.JButton cardCancel;
     private javax.swing.JLabel cardPayment;
+    private javax.swing.JButton cashOutBtn;
     private javax.swing.JLabel change;
     private javax.swing.JLabel changeDue;
     private javax.swing.JPanel creditCard;
@@ -2375,6 +2841,8 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
     private javax.swing.JPanel entrees;
     private javax.swing.JButton exitTables;
     private javax.swing.JTextField input;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList10;
     private javax.swing.JList<String> jList8;
@@ -2391,6 +2859,7 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
     private javax.swing.JTextField payIn;
     private javax.swing.JPanel payInCash;
     private javax.swing.JList<String> paymentList;
+    private javax.swing.JButton returnBtn;
     private javax.swing.JButton runReport;
     private javax.swing.JToggleButton s1;
     private javax.swing.JToggleButton s2;
