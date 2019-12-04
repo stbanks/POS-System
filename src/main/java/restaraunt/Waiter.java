@@ -9,8 +9,10 @@ public class Waiter {
     private double totalCard;
     private double totalCash;
     private double id;                
+    private String name;
         
-    public Waiter(double idNum) {
+    public Waiter(double idNum, String nameIn) {
+        name = nameIn;
         totalSales = 0;
         totalCard = 0;
         totalCash = 0;
@@ -47,6 +49,9 @@ public class Waiter {
 
     public void setId(double id) {
         this.id = id;
+    }
+    public String getName(){
+        return name;
     }
     
     //This method will be called by the POS.java to process cash payments and output change due

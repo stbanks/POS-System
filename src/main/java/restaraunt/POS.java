@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 
 
 /**
@@ -26,6 +27,8 @@ public class POS extends javax.swing.JFrame {
       public static double seat3Price = 0.0;
        public static double seat4Price = 0.0;
         public static double totalPrice = 0.0;
+        public static String changeDueFinal = "";
+        public static String creditDueFinal= "";
   
 public static ArrayList<Food> appsList = initFoodList(1);
 public static ArrayList<Food> saladsList = initFoodList(2);
@@ -44,20 +47,24 @@ public static DefaultListModel dessertModel = new DefaultListModel();
 public static DefaultListModel drinkModel = new DefaultListModel();
 public static DefaultListModel orderModel = new DefaultListModel();
 public static DefaultListModel paymentModel = new DefaultListModel();
-
+public static boolean paymentMethodChosen = false;
+public static String paymentMethod= "";
 //table 10 declarations
-public  Table table10 = new Table(10,10,4);
-public  Order table10Seat1Order = new Order(10, 1);
-public  Order table10Seat2Order = new Order(10, 2);
-public  Order table10Seat3Order = new Order(10, 3);
-public  Order table10Seat4Order = new Order(10, 4);
+public static Table table10 = new Table(10,10,4);
+public static Order table10Seat1Order = new Order(10, 1);
+public static  Order table10Seat2Order = new Order(10, 2);
+public  static Order table10Seat3Order = new Order(10, 3);
+public static Order table10Seat4Order = new Order(10, 4);
 
+public static Waiter currentWaiter = new Waiter(0101, "Temp");
+
+public static String waiterName = "";
 //table 20 declarations
-public  Table table20 = new Table(20,20,4);
-public  Order table20Seat1Order = new Order(20,1);
-public  Order table20Seat2Order = new Order(20, 2);
-public  Order table20Seat3Order = new Order(20, 3);
-public  Order table20Seat4Order = new Order(20, 4);
+public static Table table20 = new Table(20,20,4);
+public static Order table20Seat1Order = new Order(20,1);
+public static Order table20Seat2Order = new Order(20, 2);
+public static Order table20Seat3Order = new Order(20, 3);
+public static Order table20Seat4Order = new Order(20, 4);
 
 //table 30 declarations
 public  Table table30 = new Table(30,30,4);
@@ -67,30 +74,30 @@ public static Order table30Seat3Order = new Order(30, 3);
 public static  Order table30Seat4Order = new Order(30, 4);
 
 //table 40 declarations
-public  Table table40 = new Table(40,40,4);
-public  Order table40Seat1Order = new Order(40, 1);
-public  Order table40Seat2Order = new Order(40,  2);
-public  Order table40Seat3Order = new Order(40, 3);
-public  Order table40Seat4Order = new Order(40,  4);
+public static Table table40 = new Table(40,40,4);
+public static Order table40Seat1Order = new Order(40, 1);
+public static Order table40Seat2Order = new Order(40,  2);
+public static Order table40Seat3Order = new Order(40, 3);
+public static Order table40Seat4Order = new Order(40,  4);
 //table 50 declarations
-public  Table table50 = new Table(50,50,4);
-public  Order table50Seat1Order = new Order(50, 1);
-public  Order table50Seat2Order = new Order(50,  2);
-public  Order table50Seat3Order = new Order(50, 3);
-public  Order table50Seat4Order = new Order(50,  4);
+public static Table table50 = new Table(50,50,4);
+public static Order table50Seat1Order = new Order(50, 1);
+public static Order table50Seat2Order = new Order(50,  2);
+public static Order table50Seat3Order = new Order(50, 3);
+public static Order table50Seat4Order = new Order(50,  4);
 
 //table 60 declarations
-public  Table table60 = new Table(60,60,4);
-public  Order table60Seat1Order = new Order(60,  1);
-public  Order table60Seat2Order = new Order(60, 2);
-public  Order table60Seat3Order = new Order(60,  3);
-public  Order table60Seat4Order = new Order(60,4);
+public static Table table60 = new Table(60,60,4);
+public static Order table60Seat1Order = new Order(60,  1);
+public static Order table60Seat2Order = new Order(60, 2);
+public static Order table60Seat3Order = new Order(60,  3);
+public static Order table60Seat4Order = new Order(60,4);
 //table 61 declarations
-public  Table table61 = new Table(61,61,4);
-public  Order table61Seat1Order = new Order(61, 1);
-public  Order table61Seat2Order = new Order(61,  2);
-public  Order table61Seat3Order = new Order(61, 3);
-public  Order table61Seat4Order = new Order(61,  4);
+public static Table table61 = new Table(61,61,4);
+public static Order table61Seat1Order = new Order(61, 1);
+public static Order table61Seat2Order = new Order(61,  2);
+public static Order table61Seat3Order = new Order(61, 3);
+public static Order table61Seat4Order = new Order(61,  4);
 
 
 
@@ -112,9 +119,9 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
     }
     
     //double ids[] = {1289, 1863, 8246};            //stores an array of acceptable id numbers for login
-    Waiter steven = new Waiter(1289);
-    Waiter lietzy = new Waiter(1863);
-    Waiter rafael = new Waiter(8246);
+    Waiter steven = new Waiter(1289, "Steven");
+    Waiter lietzy = new Waiter(0000, "Jacob");
+    Waiter rafael = new Waiter(8246, "Raf");
     boolean stevenLog = false;                    //will flag which server is currently logged in
     boolean lietzyLog = false;                    //will flag which server is currently logged in
     boolean rafaelLog = false;                    //will flag which server is currently logged in
@@ -143,6 +150,9 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
         btnZero = new javax.swing.JButton();
         btnOk = new javax.swing.JButton();
         input = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         Tables = new javax.swing.JPanel();
         tbl10 = new javax.swing.JButton();
         tbl20 = new javax.swing.JButton();
@@ -154,6 +164,9 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
         exitTables = new javax.swing.JButton();
         makeTable = new javax.swing.JButton();
         runReport = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        waiterNameLabel = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         Payment = new javax.swing.JPanel();
         seatPayment = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -182,6 +195,9 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
         seat3 = new javax.swing.JToggleButton();
         seat4 = new javax.swing.JToggleButton();
         allSeat = new javax.swing.JToggleButton();
+        cashOutBtn = new javax.swing.JButton();
+        returnBtn = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
         Order = new javax.swing.JPanel();
         dynamicPanel = new javax.swing.JPanel();
         orderPanel = new javax.swing.JPanel();
@@ -232,61 +248,85 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
         s2 = new javax.swing.JToggleButton();
         s3 = new javax.swing.JToggleButton();
         s4 = new javax.swing.JToggleButton();
+        jLabel5 = new javax.swing.JLabel();
+        tableNameLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Back Row Group POS");
+        setBackground(new java.awt.Color(102, 102, 102));
+        setForeground(new java.awt.Color(153, 153, 153));
         setName("POS"); // NOI18N
 
+        mainPanel.setBackground(new java.awt.Color(153, 153, 153));
         mainPanel.setPreferredSize(new java.awt.Dimension(1300, 750));
         mainPanel.setLayout(new java.awt.CardLayout());
 
+        login.setBackground(new java.awt.Color(153, 153, 153));
         login.setPreferredSize(new java.awt.Dimension(1300, 750));
         login.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnOne.setBackground(new java.awt.Color(153, 153, 153));
+        btnOne.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         btnOne.setText("1");
+        btnOne.setBorder(null);
         btnOne.setPreferredSize(new java.awt.Dimension(55, 55));
         btnOne.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOneActionPerformed(evt);
             }
         });
-        login.add(btnOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 250, -1, -1));
+        login.add(btnOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 250, -1, -1));
 
+        btnTwo.setBackground(new java.awt.Color(153, 153, 153));
+        btnTwo.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         btnTwo.setText("2");
+        btnTwo.setBorder(null);
         btnTwo.setPreferredSize(new java.awt.Dimension(55, 55));
         btnTwo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTwoActionPerformed(evt);
             }
         });
-        login.add(btnTwo, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 250, -1, -1));
+        login.add(btnTwo, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 250, -1, -1));
 
+        btnThree.setBackground(new java.awt.Color(153, 153, 153));
+        btnThree.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         btnThree.setText("3");
+        btnThree.setBorder(null);
         btnThree.setPreferredSize(new java.awt.Dimension(55, 55));
         btnThree.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThreeActionPerformed(evt);
             }
         });
-        login.add(btnThree, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 250, -1, -1));
+        login.add(btnThree, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 250, -1, -1));
 
+        btnFour.setBackground(new java.awt.Color(153, 153, 153));
+        btnFour.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         btnFour.setText("4");
+        btnFour.setBorder(null);
         btnFour.setPreferredSize(new java.awt.Dimension(55, 55));
         btnFour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFourActionPerformed(evt);
             }
         });
-        login.add(btnFour, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 320, -1, -1));
+        login.add(btnFour, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 320, -1, -1));
 
+        btnFive.setBackground(new java.awt.Color(153, 153, 153));
+        btnFive.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         btnFive.setText("5");
+        btnFive.setBorder(null);
         btnFive.setPreferredSize(new java.awt.Dimension(55, 55));
         btnFive.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFiveActionPerformed(evt);
             }
         });
-        login.add(btnFive, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 320, -1, -1));
+        login.add(btnFive, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 320, -1, -1));
 
+        btnSix.setBackground(new java.awt.Color(153, 153, 153));
+        btnSix.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         btnSix.setText("6");
         btnSix.setPreferredSize(new java.awt.Dimension(55, 55));
         btnSix.addActionListener(new java.awt.event.ActionListener() {
@@ -294,68 +334,111 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
                 btnSixActionPerformed(evt);
             }
         });
-        login.add(btnSix, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 320, -1, -1));
+        login.add(btnSix, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 320, -1, -1));
 
+        btnSeven.setBackground(new java.awt.Color(153, 153, 153));
+        btnSeven.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         btnSeven.setText("7");
+        btnSeven.setBorder(null);
         btnSeven.setPreferredSize(new java.awt.Dimension(55, 55));
         btnSeven.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSevenActionPerformed(evt);
             }
         });
-        login.add(btnSeven, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 390, -1, -1));
+        login.add(btnSeven, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 390, -1, -1));
 
+        btnEight.setBackground(new java.awt.Color(153, 153, 153));
+        btnEight.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         btnEight.setText("8");
+        btnEight.setBorder(null);
         btnEight.setPreferredSize(new java.awt.Dimension(55, 55));
         btnEight.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEightActionPerformed(evt);
             }
         });
-        login.add(btnEight, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 390, -1, -1));
+        login.add(btnEight, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 390, -1, -1));
 
+        btnNine.setBackground(new java.awt.Color(153, 153, 153));
+        btnNine.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         btnNine.setText("9");
+        btnNine.setBorder(null);
         btnNine.setPreferredSize(new java.awt.Dimension(55, 55));
         btnNine.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNineActionPerformed(evt);
             }
         });
-        login.add(btnNine, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 390, -1, -1));
+        login.add(btnNine, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 390, -1, -1));
 
+        btnCancel.setBackground(new java.awt.Color(153, 153, 153));
+        btnCancel.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         btnCancel.setText("X");
+        btnCancel.setBorder(null);
         btnCancel.setPreferredSize(new java.awt.Dimension(55, 55));
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelActionPerformed(evt);
             }
         });
-        login.add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 460, -1, -1));
+        login.add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 460, -1, -1));
 
+        btnZero.setBackground(new java.awt.Color(153, 153, 153));
+        btnZero.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         btnZero.setText("0");
+        btnZero.setBorder(null);
         btnZero.setPreferredSize(new java.awt.Dimension(55, 55));
         btnZero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnZeroActionPerformed(evt);
             }
         });
-        login.add(btnZero, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 460, -1, -1));
+        login.add(btnZero, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 460, -1, -1));
 
+        btnOk.setBackground(new java.awt.Color(153, 153, 153));
+        btnOk.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         btnOk.setText("OK");
+        btnOk.setBorder(null);
         btnOk.setPreferredSize(new java.awt.Dimension(55, 55));
         btnOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOkActionPerformed(evt);
             }
         });
-        login.add(btnOk, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 460, -1, -1));
-        login.add(input, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 200, 200, 30));
+        login.add(btnOk, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 460, -1, -1));
+
+        input.setBackground(new java.awt.Color(153, 153, 153));
+        input.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        input.setBorder(null);
+        login.add(input, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 200, 200, 30));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24)); // NOI18N
+        jLabel2.setText("Welcome, Please Enter Employee ID");
+        login.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 170, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jLabel3.setText("ID:");
+        login.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 200, -1, 30));
+
+        jButton1.setBackground(new java.awt.Color(153, 153, 153));
+        jButton1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        jButton1.setText("Exit Program");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        login.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 710, 170, -1));
 
         mainPanel.add(login, "card5");
 
+        Tables.setBackground(new java.awt.Color(153, 153, 153));
         Tables.setPreferredSize(new java.awt.Dimension(1300, 750));
         Tables.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tbl10.setBackground(new java.awt.Color(153, 153, 153));
+        tbl10.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         tbl10.setText("10");
         tbl10.setPreferredSize(new java.awt.Dimension(80, 30));
         tbl10.addActionListener(new java.awt.event.ActionListener() {
@@ -363,8 +446,10 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
                 tbl10ActionPerformed(evt);
             }
         });
-        Tables.add(tbl10, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 490, 100, 100));
+        Tables.add(tbl10, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 110, 110));
 
+        tbl20.setBackground(new java.awt.Color(153, 153, 153));
+        tbl20.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         tbl20.setText("20");
         tbl20.setPreferredSize(new java.awt.Dimension(80, 30));
         tbl20.addActionListener(new java.awt.event.ActionListener() {
@@ -372,8 +457,10 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
                 tbl20ActionPerformed(evt);
             }
         });
-        Tables.add(tbl20, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 280, 100, 100));
+        Tables.add(tbl20, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 110, 110));
 
+        tbl30.setBackground(new java.awt.Color(153, 153, 153));
+        tbl30.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         tbl30.setText("30");
         tbl30.setPreferredSize(new java.awt.Dimension(80, 30));
         tbl30.addActionListener(new java.awt.event.ActionListener() {
@@ -381,8 +468,10 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
                 tbl30ActionPerformed(evt);
             }
         });
-        Tables.add(tbl30, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 110, 110));
+        Tables.add(tbl30, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, 110, 110));
 
+        tbl40.setBackground(new java.awt.Color(153, 153, 153));
+        tbl40.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         tbl40.setText("40");
         tbl40.setToolTipText("");
         tbl40.setPreferredSize(new java.awt.Dimension(80, 30));
@@ -391,8 +480,10 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
                 tbl40ActionPerformed(evt);
             }
         });
-        Tables.add(tbl40, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 30, 110, 110));
+        Tables.add(tbl40, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 420, 110, 110));
 
+        tbl50.setBackground(new java.awt.Color(153, 153, 153));
+        tbl50.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         tbl50.setText("50");
         tbl50.setPreferredSize(new java.awt.Dimension(80, 30));
         tbl50.addActionListener(new java.awt.event.ActionListener() {
@@ -400,8 +491,10 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
                 tbl50ActionPerformed(evt);
             }
         });
-        Tables.add(tbl50, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 30, 110, 110));
+        Tables.add(tbl50, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, 110, 110));
 
+        tbl60.setBackground(new java.awt.Color(153, 153, 153));
+        tbl60.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         tbl60.setText("60");
         tbl60.setPreferredSize(new java.awt.Dimension(80, 30));
         tbl60.addActionListener(new java.awt.event.ActionListener() {
@@ -409,8 +502,10 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
                 tbl60ActionPerformed(evt);
             }
         });
-        Tables.add(tbl60, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 280, 110, 100));
+        Tables.add(tbl60, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, 110, 110));
 
+        tbl61.setBackground(new java.awt.Color(153, 153, 153));
+        tbl61.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         tbl61.setText("61");
         tbl61.setPreferredSize(new java.awt.Dimension(80, 30));
         tbl61.addActionListener(new java.awt.event.ActionListener() {
@@ -418,39 +513,58 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
                 tbl61ActionPerformed(evt);
             }
         });
-        Tables.add(tbl61, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 480, 110, 110));
+        Tables.add(tbl61, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 290, 110, 110));
 
-        exitTables.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        exitTables.setBackground(new java.awt.Color(153, 153, 153));
+        exitTables.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         exitTables.setText("Exit");
         exitTables.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitTablesActionPerformed(evt);
             }
         });
-        Tables.add(exitTables, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 600, 140, 50));
+        Tables.add(exitTables, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 680, 140, 50));
 
-        makeTable.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        makeTable.setBackground(new java.awt.Color(153, 153, 153));
+        makeTable.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         makeTable.setText("Make Table");
-        Tables.add(makeTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 30, 140, 50));
+        Tables.add(makeTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 30, 140, 50));
 
-        runReport.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        runReport.setBackground(new java.awt.Color(153, 153, 153));
+        runReport.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         runReport.setText("Run Report");
         runReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 runReportActionPerformed(evt);
             }
         });
-        Tables.add(runReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 150, 140, 50));
+        Tables.add(runReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, 140, 50));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        jLabel1.setText("Hello");
+        Tables.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 10, -1, -1));
+
+        waiterNameLabel.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        waiterNameLabel.setText(waiterName);
+        Tables.add(waiterNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 10, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        jLabel4.setText("Tables");
+        Tables.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, -1, -1));
 
         mainPanel.add(Tables, "tables");
 
+        Payment.setBackground(new java.awt.Color(153, 153, 153));
         Payment.setPreferredSize(new java.awt.Dimension(1300, 750));
         Payment.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         seatPayment.setBackground(new java.awt.Color(204, 204, 204));
-        seatPayment.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         seatPayment.setLayout(new java.awt.CardLayout());
 
+        jScrollPane4.setBackground(new java.awt.Color(204, 204, 204));
+
+        paymentList.setBackground(new java.awt.Color(204, 204, 204));
+        paymentList.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         paymentList.setModel(paymentModel);
         jScrollPane4.setViewportView(paymentList);
 
@@ -458,8 +572,9 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
 
         Payment.add(seatPayment, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 680, 420));
 
-        Pay.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         Pay.setLayout(new java.awt.CardLayout());
+
+        emptyCash.setBackground(new java.awt.Color(204, 204, 204));
 
         javax.swing.GroupLayout emptyCashLayout = new javax.swing.GroupLayout(emptyCash);
         emptyCash.setLayout(emptyCashLayout);
@@ -474,140 +589,200 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
 
         Pay.add(emptyCash, "card3");
 
+        creditCard.setBackground(new java.awt.Color(204, 204, 204));
         creditCard.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        cardPayment.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         cardPayment.setText("Total Card Payment:");
         creditCard.add(cardPayment, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 130, 40));
 
+        tipLabel.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         tipLabel.setText("Tip:");
         creditCard.add(tipLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 130, 40));
+
+        tipIn.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         creditCard.add(tipIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 230, 30));
 
+        cardAccept.setBackground(new java.awt.Color(204, 204, 204));
+        cardAccept.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         cardAccept.setText("Accept");
+        cardAccept.setBorder(null);
         cardAccept.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cardAcceptActionPerformed(evt);
             }
         });
-        creditCard.add(cardAccept, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, -1, -1));
+        creditCard.add(cardAccept, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 110, 30));
 
+        cardCancel.setBackground(new java.awt.Color(204, 204, 204));
+        cardCancel.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         cardCancel.setText("Cancel");
         cardCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cardCancelActionPerformed(evt);
             }
         });
-        creditCard.add(cardCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 140, -1, -1));
+        creditCard.add(cardCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 140, 100, 30));
 
+        totalCardPayment.setBackground(new java.awt.Color(255, 255, 255));
+        totalCardPayment.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         totalCardPayment.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         totalCardPayment.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         creditCard.add(totalCardPayment, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 230, 30));
 
         Pay.add(creditCard, "card4");
 
+        payInCash.setBackground(new java.awt.Color(204, 204, 204));
         payInCash.setPreferredSize(new java.awt.Dimension(676, 176));
         payInCash.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        totalPayment.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         totalPayment.setText("Total Cash Payment:");
         payInCash.add(totalPayment, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 130, 40));
 
+        changeDue.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         changeDue.setText("Change Due:");
         payInCash.add(changeDue, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 130, 40));
+
+        payIn.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         payInCash.add(payIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, 230, 30));
 
+        accept.setBackground(new java.awt.Color(204, 204, 204));
+        accept.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         accept.setText("Accept");
         accept.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 acceptActionPerformed(evt);
             }
         });
-        payInCash.add(accept, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, -1, -1));
+        payInCash.add(accept, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, 110, -1));
 
+        cancel.setBackground(new java.awt.Color(204, 204, 204));
+        cancel.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         cancel.setText("Cancel");
         cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelActionPerformed(evt);
             }
         });
-        payInCash.add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 140, -1, -1));
+        payInCash.add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(335, 140, 100, 30));
 
         change.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         change.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        payInCash.add(change, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 230, 20));
+        payInCash.add(change, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 230, 30));
 
         Pay.add(payInCash, "card2");
 
         Payment.add(Pay, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 500, 680, 180));
 
-        btnCard.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        btnCard.setBackground(new java.awt.Color(153, 153, 153));
+        btnCard.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         btnCard.setText("Credit Card");
         btnCard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCardActionPerformed(evt);
             }
         });
-        Payment.add(btnCard, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 70, 250, 90));
+        Payment.add(btnCard, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 100, 250, 60));
 
-        btnCash.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        btnCash.setBackground(new java.awt.Color(153, 153, 153));
+        btnCash.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         btnCash.setText("Cash");
         btnCash.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCashActionPerformed(evt);
             }
         });
-        Payment.add(btnCash, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 190, 250, 90));
+        Payment.add(btnCash, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 170, 250, 60));
 
-        btnExit.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        btnExit.setBackground(new java.awt.Color(153, 153, 153));
+        btnExit.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         btnExit.setText("Exit");
         btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExitActionPerformed(evt);
             }
         });
-        Payment.add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 500, 250, 90));
+        Payment.add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 690, 200, 60));
 
+        seat1Payment.setBackground(new java.awt.Color(153, 153, 153));
+        seat1Payment.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         seat1Payment.setText("Seat 1");
         seat1Payment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seat1PaymentActionPerformed(evt);
             }
         });
-        Payment.add(seat1Payment, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+        Payment.add(seat1Payment, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 120, -1));
 
+        seat2.setBackground(new java.awt.Color(153, 153, 153));
+        seat2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         seat2.setText("Seat 2");
         seat2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seat2ActionPerformed(evt);
             }
         });
-        Payment.add(seat2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, -1, -1));
+        Payment.add(seat2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 130, -1));
 
+        seat3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         seat3.setText("Seat 3");
         seat3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seat3ActionPerformed(evt);
             }
         });
-        Payment.add(seat3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, -1, -1));
+        Payment.add(seat3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, 120, -1));
 
+        seat4.setBackground(new java.awt.Color(153, 153, 153));
+        seat4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         seat4.setText("Seat 4");
         seat4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seat4ActionPerformed(evt);
             }
         });
-        Payment.add(seat4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, -1, -1));
+        Payment.add(seat4, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, 100, -1));
 
+        allSeat.setBackground(new java.awt.Color(153, 153, 153));
+        allSeat.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         allSeat.setText("All Seats");
         allSeat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 allSeatActionPerformed(evt);
             }
         });
-        Payment.add(allSeat, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 20, -1, -1));
+        Payment.add(allSeat, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 20, 140, -1));
+
+        cashOutBtn.setBackground(new java.awt.Color(153, 153, 153));
+        cashOutBtn.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        cashOutBtn.setText("Confirm and Cash Out Order");
+        cashOutBtn.setToolTipText("Caution: This will clear out whatever order you have selected please ensure the customer has paid");
+        cashOutBtn.setEnabled(false);
+        cashOutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cashOutBtnActionPerformed(evt);
+            }
+        });
+        Payment.add(cashOutBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 620, 350, 60));
+
+        returnBtn.setBackground(new java.awt.Color(153, 153, 153));
+        returnBtn.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        returnBtn.setText("Go Back\n");
+        returnBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                returnBtnActionPerformed(evt);
+            }
+        });
+        Payment.add(returnBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 10, 180, -1));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        jLabel6.setText("Select Payment Type");
+        Payment.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 70, -1, -1));
 
         mainPanel.add(Payment, "payment");
 
+        Order.setBackground(new java.awt.Color(153, 153, 153));
         Order.setPreferredSize(new java.awt.Dimension(1300, 750));
         Order.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -616,7 +791,13 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
         dynamicPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         dynamicPanel.setLayout(new java.awt.CardLayout());
 
-        jList1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        orderPanel.setBackground(new java.awt.Color(204, 204, 204));
+
+        currentOrder.setBackground(new java.awt.Color(204, 204, 204));
+        currentOrder.setBorder(null);
+
+        jList1.setBackground(new java.awt.Color(204, 204, 204));
+        jList1.setFont(new java.awt.Font("Segoe UI Semilight", 0, 24)); // NOI18N
         jList1.setModel(orderModel);
         jList1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -638,6 +819,12 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
 
         dynamicPanel.add(orderPanel, "card8");
 
+        appetizers.setBackground(new java.awt.Color(204, 204, 204));
+
+        appList.setBackground(new java.awt.Color(153, 153, 153));
+        appList.setBorder(null);
+
+        appetizerList.setBackground(new java.awt.Color(204, 204, 204));
         appetizerList.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         appetizerList.setModel(appModel);
         appetizerList.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -655,7 +842,7 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
         );
         appetizersLayout.setVerticalGroup(
             appetizersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(appList, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
+            .addComponent(appList, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
         );
 
         dynamicPanel.add(appetizers, "card7");
@@ -835,54 +1022,68 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
 
         Order.add(dynamicPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 690, 550));
 
+        btnApps.setBackground(new java.awt.Color(153, 153, 153));
+        btnApps.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         btnApps.setText("Appetizers");
         btnApps.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAppsActionPerformed(evt);
             }
         });
-        Order.add(btnApps, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 20, 170, 50));
+        Order.add(btnApps, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 30, 170, 50));
 
+        btnSalad.setBackground(new java.awt.Color(153, 153, 153));
+        btnSalad.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         btnSalad.setText("Salads");
         btnSalad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaladActionPerformed(evt);
             }
         });
-        Order.add(btnSalad, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 100, 170, 50));
+        Order.add(btnSalad, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 90, 170, 50));
 
+        btnSandwich.setBackground(new java.awt.Color(153, 153, 153));
+        btnSandwich.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         btnSandwich.setText("Sandwiches");
         btnSandwich.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSandwichActionPerformed(evt);
             }
         });
-        Order.add(btnSandwich, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 180, 170, 50));
+        Order.add(btnSandwich, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 150, 170, 50));
 
+        btnEntree.setBackground(new java.awt.Color(153, 153, 153));
+        btnEntree.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         btnEntree.setText("Entrees");
         btnEntree.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEntreeActionPerformed(evt);
             }
         });
-        Order.add(btnEntree, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 260, 170, 50));
+        Order.add(btnEntree, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 210, 170, 50));
 
+        btnDessert.setBackground(new java.awt.Color(153, 153, 153));
+        btnDessert.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         btnDessert.setText("Desserts");
         btnDessert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDessertActionPerformed(evt);
             }
         });
-        Order.add(btnDessert, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 340, 170, 50));
+        Order.add(btnDessert, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 270, 170, 50));
 
+        btnDrinks.setBackground(new java.awt.Color(153, 153, 153));
+        btnDrinks.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         btnDrinks.setText("Drinks");
         btnDrinks.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDrinksActionPerformed(evt);
             }
         });
-        Order.add(btnDrinks, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 420, 170, 50));
+        Order.add(btnDrinks, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 330, 170, 50));
 
+        addToOderBtn.setBackground(new java.awt.Color(153, 153, 153));
+        addToOderBtn.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         addToOderBtn.setText("Add");
         addToOderBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -891,23 +1092,30 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
         });
         Order.add(addToOderBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 220, 170, 50));
 
-        btnPay.setText("Payment");
+        btnPay.setBackground(new java.awt.Color(153, 153, 153));
+        btnPay.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        btnPay.setText("Go To Payment");
         btnPay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPayActionPerformed(evt);
             }
         });
-        Order.add(btnPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 500, 170, 50));
+        Order.add(btnPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 390, 170, 50));
 
+        btnSend.setBackground(new java.awt.Color(153, 153, 153));
+        btnSend.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         btnSend.setText("Send/Exit");
         btnSend.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSendActionPerformed(evt);
             }
         });
-        Order.add(btnSend, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 580, 170, 50));
+        Order.add(btnSend, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 690, 170, 50));
 
+        btnAddNoCharge.setBackground(new java.awt.Color(153, 153, 153));
+        btnAddNoCharge.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         btnAddNoCharge.setText("Add");
+        btnAddNoCharge.setEnabled(false);
         btnAddNoCharge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddNoChargeActionPerformed(evt);
@@ -915,7 +1123,10 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
         });
         Order.add(btnAddNoCharge, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 640, 170, 60));
 
+        btnAddCharge.setBackground(new java.awt.Color(153, 153, 153));
+        btnAddCharge.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         btnAddCharge.setText("$Add");
+        btnAddCharge.setEnabled(false);
         btnAddCharge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddChargeActionPerformed(evt);
@@ -923,7 +1134,10 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
         });
         Order.add(btnAddCharge, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 640, 170, 60));
 
+        btnAllergy.setBackground(new java.awt.Color(153, 153, 153));
+        btnAllergy.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         btnAllergy.setText("!ALLERGY!");
+        btnAllergy.setEnabled(false);
         btnAllergy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAllergyActionPerformed(evt);
@@ -931,6 +1145,8 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
         });
         Order.add(btnAllergy, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 640, 170, 60));
 
+        btnVoid.setBackground(new java.awt.Color(153, 153, 153));
+        btnVoid.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         btnVoid.setText("Void");
         btnVoid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -939,6 +1155,8 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
         });
         Order.add(btnVoid, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 290, 170, 50));
 
+        btnOrder.setBackground(new java.awt.Color(153, 153, 153));
+        btnOrder.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         btnOrder.setText("Order");
         btnOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -947,37 +1165,53 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
         });
         Order.add(btnOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 150, 170, 50));
 
+        s1.setBackground(new java.awt.Color(153, 153, 153));
+        s1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         s1.setText("Seat 1");
         s1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 s1ActionPerformed(evt);
             }
         });
-        Order.add(s1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+        Order.add(s1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 100, -1));
 
+        s2.setBackground(new java.awt.Color(153, 153, 153));
+        s2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         s2.setText("Seat 2");
         s2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 s2ActionPerformed(evt);
             }
         });
-        Order.add(s2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
+        Order.add(s2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 90, -1));
 
+        s3.setBackground(new java.awt.Color(153, 153, 153));
+        s3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         s3.setText("Seat 3");
         s3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 s3ActionPerformed(evt);
             }
         });
-        Order.add(s3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, -1, -1));
+        Order.add(s3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, 100, -1));
 
+        s4.setBackground(new java.awt.Color(153, 153, 153));
+        s4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         s4.setText("Seat 4");
         s4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 s4ActionPerformed(evt);
             }
         });
-        Order.add(s4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, -1, -1));
+        Order.add(s4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, 90, -1));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        jLabel5.setText("Table:");
+        Order.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 0, -1, -1));
+
+        tableNameLabel.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        tableNameLabel.setText("1");
+        Order.add(tableNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 0, 50, -1));
 
         mainPanel.add(Order, "order");
 
@@ -1127,16 +1361,20 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
         }*/
         
         if(inputIDNum == steven.getId()){
+            currentWaiter = steven;
+            
             stevenLog = true;
             lietzyLog = false;
             rafaelLog = false;
         }
         else if(inputIDNum == lietzy.getId()){
+            currentWaiter = lietzy;
             lietzyLog = true;
             stevenLog = false;
             rafaelLog = false;
         }
         else if(inputIDNum == rafael.getId()){
+            currentWaiter = rafael;
             rafaelLog = true;
             stevenLog = false;
             lietzyLog = false;
@@ -1157,6 +1395,7 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
             mainPanel.add(Tables);                              
             mainPanel.repaint();
             mainPanel.revalidate();
+            waiterNameLabel.setText(currentWaiter.getName());
         }
         else{
             input.setText("");
@@ -1173,6 +1412,7 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
         mainPanel.revalidate();
         
         currentTable = table40;
+        tableNameLabel.setText(Integer.toString(currentTable.getId()));
     }//GEN-LAST:event_tbl40ActionPerformed
 
     private void tbl30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbl30ActionPerformed
@@ -1182,6 +1422,7 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
         mainPanel.revalidate();
         
         currentTable = table30;
+        tableNameLabel.setText(Integer.toString(currentTable.getId()));
         
         
         
@@ -1194,6 +1435,7 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
         mainPanel.revalidate();
         
         currentTable = table20;
+        tableNameLabel.setText(Integer.toString(currentTable.getId()));
     }//GEN-LAST:event_tbl20ActionPerformed
 
     private void tbl10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbl10ActionPerformed
@@ -1203,6 +1445,7 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
         mainPanel.revalidate();
         
         currentTable = table10;
+        tableNameLabel.setText(Integer.toString(currentTable.getId()));
     }//GEN-LAST:event_tbl10ActionPerformed
 
     private void tbl60ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbl60ActionPerformed
@@ -1212,6 +1455,7 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
         mainPanel.revalidate();
         
         currentTable = table60;
+        tableNameLabel.setText(Integer.toString(currentTable.getId()));
     }//GEN-LAST:event_tbl60ActionPerformed
 
     private void tbl61ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbl61ActionPerformed
@@ -1221,6 +1465,7 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
         mainPanel.revalidate();
         
         currentTable = table61;
+        tableNameLabel.setText(Integer.toString(currentTable.getId()));
     }//GEN-LAST:event_tbl61ActionPerformed
 
     private void exitTablesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitTablesActionPerformed
@@ -1631,12 +1876,14 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
              paymentModel.addElement("Total : " +seat1Price);
         }
         else{
+            seat1Price = 0.0;
             allSeat.setEnabled(true);
         }
     }//GEN-LAST:event_seat1PaymentActionPerformed
 
     private void seat2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat2ActionPerformed
           paymentModel.clear();
+          
         ArrayList<Food> tempList = new ArrayList<>();
          
         if(seat2.isSelected()){
@@ -1678,6 +1925,7 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
              paymentModel.addElement("Total : " +seat2Price);
         }
         else{
+            seat2Price = 0.0;
             allSeat.setEnabled(true);
         }
     }//GEN-LAST:event_seat2ActionPerformed
@@ -1725,6 +1973,7 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
              paymentModel.addElement("Total : " +seat3Price);
         }
         else{
+            seat3Price = 0.0;
             allSeat.setEnabled(true);
         }
     }//GEN-LAST:event_seat3ActionPerformed
@@ -1773,18 +2022,82 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
             paymentModel.addElement("Total : " +seat4Price);
         }
         else{
+            seat4Price = 0.0;
             allSeat.setEnabled(true);
         }
+        
     }//GEN-LAST:event_seat4ActionPerformed
 
     private void allSeatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allSeatActionPerformed
+         paymentModel.clear();
+        ArrayList<ArrayList<Food>> wholeList = new ArrayList<>();
         if(allSeat.isSelected()){
             seat1Payment.setEnabled(false);
             seat2.setEnabled(false);
             seat3.setEnabled(false);
             seat4.setEnabled(false);
+            
+            switch(currentTable.getId()){
+                case 10 : {
+                    wholeList.add(table10Seat1Order.getOrder());
+                    wholeList.add(table10Seat2Order.getOrder());
+                    wholeList.add(table10Seat3Order.getOrder());
+                    wholeList.add(table10Seat4Order.getOrder());
+                   
+                    break;
+                }
+                case 20: {
+                    wholeList.add(table20Seat1Order.getOrder());
+                    wholeList.add(table20Seat2Order.getOrder());
+                    wholeList.add(table20Seat3Order.getOrder());
+                    wholeList.add(table20Seat4Order.getOrder());
+                    break;
+                }
+                case 30: {
+                     wholeList.add(table30Seat1Order.getOrder());
+                    wholeList.add(table30Seat2Order.getOrder());
+                    wholeList.add(table30Seat3Order.getOrder());
+                    wholeList.add(table30Seat4Order.getOrder());
+                    break;
+                }
+                case 40: {
+                     wholeList.add(table40Seat1Order.getOrder());
+                    wholeList.add(table40Seat2Order.getOrder());
+                    wholeList.add(table40Seat3Order.getOrder());
+                    wholeList.add(table40Seat4Order.getOrder());
+                    break;
+                }
+                case 50: {
+                     wholeList.add(table50Seat1Order.getOrder());
+                    wholeList.add(table50Seat2Order.getOrder());
+                    wholeList.add(table50Seat3Order.getOrder());
+                    wholeList.add(table50Seat4Order.getOrder());
+                    break;
+                }
+                case 60: {
+                     wholeList.add(table60Seat1Order.getOrder());
+                    wholeList.add(table60Seat2Order.getOrder());
+                    wholeList.add(table60Seat3Order.getOrder());
+                    wholeList.add(table60Seat4Order.getOrder());
+                    break;
+                }
+                case 61: {
+                     wholeList.add(table61Seat1Order.getOrder());
+                    wholeList.add(table61Seat2Order.getOrder());
+                    wholeList.add(table61Seat3Order.getOrder());
+                    wholeList.add(table61Seat4Order.getOrder());
+                    break;
+                }
+            }
+            for(int i = 0; i < wholeList.size(); i++){
+                for(int d = 0; d < wholeList.get(i).size(); d++){
+                    paymentModel.addElement(wholeList.get(i).get(d).getName() + " " + wholeList.get(i).get(d).getPrice());
+                    totalPrice += wholeList.get(i).get(d).getPrice();
+                }
+            }
         }
         else{
+            totalPrice = 0.0;
             seat1Payment.setEnabled(true);
             seat2.setEnabled(true);
             seat3.setEnabled(true);
@@ -1795,6 +2108,29 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
     private void acceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptActionPerformed
         double totalCashPayment = Double.parseDouble(getPayIn());
         String catchCash;
+        
+        if(seat1Payment.isSelected()){
+            changeDueFinal = String.valueOf(totalCashPayment - seat1Price);
+            change.setText(changeDueFinal);
+        }
+         if(seat2.isSelected()){
+            changeDueFinal = String.valueOf(totalCashPayment - seat2Price);
+            change.setText(changeDueFinal);
+        }
+          if(seat3.isSelected()){
+            changeDueFinal = String.valueOf(totalCashPayment - seat3Price);
+            change.setText(changeDueFinal);
+        }
+           if(seat4.isSelected()){
+            changeDueFinal = String.valueOf(totalCashPayment - seat4Price);
+            change.setText(changeDueFinal);
+        }
+            if(allSeat.isSelected()){
+            changeDueFinal = String.valueOf(totalCashPayment - totalPrice);
+            change.setText(changeDueFinal);
+        }
+            cashOutBtn.setEnabled(true);
+        /*
         
         if(stevenLog){
             catchCash = steven.handleCashPayment(totalCashPayment);
@@ -1811,18 +2147,42 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
             change.setText(catchCash);
             rafael.updateReportCash(totalCashPayment);
         }
+        */
         
     }//GEN-LAST:event_acceptActionPerformed
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
         change.setText("");
         payIn.setText("");
+        cashOutBtn.setEnabled(false);
     }//GEN-LAST:event_cancelActionPerformed
 
     private void cardAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardAcceptActionPerformed
         double totalCreditPayment = Double.parseDouble(getTip());
         String cardTotal;
         
+        if(seat1Payment.isSelected()){
+            creditDueFinal = String.valueOf(totalCreditPayment + seat1Price);
+            totalCardPayment.setText(creditDueFinal);
+        }
+         if(seat2.isSelected()){
+            creditDueFinal = String.valueOf(totalCreditPayment + seat2Price);
+            totalCardPayment.setText(creditDueFinal);
+        }
+          if(seat3.isSelected()){
+            creditDueFinal = String.valueOf(totalCreditPayment + seat3Price);
+            totalCardPayment.setText(creditDueFinal);
+        }
+           if(seat4.isSelected()){
+            changeDueFinal = String.valueOf(totalCreditPayment + seat4Price);
+            totalCardPayment.setText(creditDueFinal);
+        }
+            if(allSeat.isSelected()){
+            changeDueFinal = String.valueOf(totalCreditPayment + totalPrice);
+            totalCardPayment.setText(creditDueFinal);
+        }
+            cashOutBtn.setEnabled(true);
+        /*
         if(stevenLog){
             cardTotal = steven.handleCreditPayment(totalCreditPayment);
             totalCardPayment.setText(cardTotal);
@@ -1838,11 +2198,13 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
             totalCardPayment.setText(cardTotal);
             rafael.updateReportCard(totalCreditPayment);
         }
+        */
     }//GEN-LAST:event_cardAcceptActionPerformed
 
     private void cardCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardCancelActionPerformed
         totalCardPayment.setText("");
         tipIn.setText("");
+      cashOutBtn.setEnabled(false);
     }//GEN-LAST:event_cardCancelActionPerformed
 
     private void runReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runReportActionPerformed
@@ -2077,37 +2439,147 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
         switch(currentTable.getId()){
             case 10:{
                 
-                 table10Seat1Order.removeFromOrder(table10Seat1Order.getOrder().get(currentIndex));
+               table10Seat1Order.removeFromOrder(table10Seat1Order.getOrder().get(currentIndex));
                 break;
             }
             case 20:{
-                 table20Seat1Order.addToOrder(tempFood);
+                 table20Seat1Order.removeFromOrder(table20Seat1Order.getOrder().get(currentIndex));
                 break;
             }
             case 30:{
                 
-                table30Seat1Order.addToOrder(tempFood);   
+                table30Seat1Order.removeFromOrder(table30Seat1Order.getOrder().get(currentIndex));
                 break;
             }
             case 40:{
-                 table40Seat1Order.addToOrder(tempFood);
+               table40Seat1Order.removeFromOrder(table40Seat1Order.getOrder().get(currentIndex));
                 break;
             }
             case 50:{
-                table50Seat1Order.addToOrder(tempFood);
+               table50Seat1Order.removeFromOrder(table50Seat1Order.getOrder().get(currentIndex));
                 break;
             }
             case 60:{
-                table60Seat1Order.addToOrder(tempFood);
+                table60Seat1Order.removeFromOrder(table60Seat1Order.getOrder().get(currentIndex));
                 break;
             }
             case 61:{
-                table61Seat1Order.addToOrder(tempFood);
+               table61Seat1Order.removeFromOrder(table61Seat1Order.getOrder().get(currentIndex));
                 break;
             }
             
         }
     }
+               if(s2.isSelected()){
+        switch(currentTable.getId()){
+            case 10:{
+                
+               table10Seat2Order.removeFromOrder(table10Seat2Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 20:{
+                 table20Seat2Order.removeFromOrder(table20Seat2Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 30:{
+                
+                table30Seat2Order.removeFromOrder(table30Seat2Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 40:{
+               table40Seat2Order.removeFromOrder(table40Seat2Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 50:{
+               table50Seat2Order.removeFromOrder(table50Seat2Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 60:{
+                table60Seat2Order.removeFromOrder(table60Seat2Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 61:{
+               table61Seat2Order.removeFromOrder(table61Seat2Order.getOrder().get(currentIndex));
+                break;
+            }
+            
+        }
+    }
+               if(s3.isSelected()){
+        switch(currentTable.getId()){
+            case 10:{
+                
+               table10Seat3Order.removeFromOrder(table10Seat3Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 20:{
+                 table20Seat3Order.removeFromOrder(table20Seat3Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 30:{
+                
+                table30Seat3Order.removeFromOrder(table30Seat3Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 40:{
+               table40Seat3Order.removeFromOrder(table40Seat3Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 50:{
+               table50Seat3Order.removeFromOrder(table50Seat3Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 60:{
+                table60Seat3Order.removeFromOrder(table60Seat3Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 61:{
+               table61Seat3Order.removeFromOrder(table61Seat3Order.getOrder().get(currentIndex));
+                break;
+            }
+            
+        }
+    }
+               
+               if(s4.isSelected()){
+        switch(currentTable.getId()){
+            case 10:{
+                
+               table10Seat4Order.removeFromOrder(table10Seat4Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 20:{
+                 table20Seat4Order.removeFromOrder(table20Seat4Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 30:{
+                
+                table30Seat4Order.removeFromOrder(table30Seat4Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 40:{
+               table40Seat4Order.removeFromOrder(table40Seat4Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 50:{
+               table50Seat4Order.removeFromOrder(table50Seat4Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 60:{
+                table60Seat4Order.removeFromOrder(table60Seat4Order.getOrder().get(currentIndex));
+                break;
+            }
+            case 61:{
+               table61Seat4Order.removeFromOrder(table61Seat4Order.getOrder().get(currentIndex));
+                break;
+            }
+            
+        }
+    }
+               
+               
+               
+               
                
                
            }
@@ -2124,6 +2596,212 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
        currentIndex = jList1.getSelectedIndex();
        type = "order";
     }//GEN-LAST:event_jList1MouseClicked
+
+    private void returnBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnBtnActionPerformed
+        mainPanel.removeAll();
+        mainPanel.add(Order);
+        mainPanel.repaint();
+        mainPanel.revalidate();
+    }//GEN-LAST:event_returnBtnActionPerformed
+
+    private void cashOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashOutBtnActionPerformed
+          if(seat1Payment.isSelected()){
+          switch(currentTable.getId()){
+            case 10:{
+                 table10Seat1Order.clearOrder();
+                break;
+            }
+            case 20:{
+                 table20Seat1Order.clearOrder();
+                break;
+            }
+            case 30:{
+                table30Seat1Order.clearOrder();
+                break;
+            }
+            case 40:{
+                 table40Seat1Order.clearOrder();
+                break;
+            }
+            case 50:{
+                table50Seat1Order.clearOrder();
+                break;
+            }
+            case 60:{
+                table60Seat1Order.clearOrder();
+                break;
+            }
+            case 61:{
+                table61Seat1Order.clearOrder();
+                break;
+            }
+            
+        }
+        
+          }
+          if(seat2.isSelected()){
+              switch(currentTable.getId()){
+            case 10:{
+                 table10Seat2Order.clearOrder();
+                break;
+            }
+            case 20:{
+                 table20Seat2Order.clearOrder();
+                break;
+            }
+            case 30:{
+                table30Seat2Order.clearOrder();
+                break;
+            }
+            case 40:{
+                 table40Seat2Order.clearOrder();
+                break;
+            }
+            case 50:{
+                table50Seat2Order.clearOrder();
+                break;
+            }
+            case 60:{
+                table60Seat2Order.clearOrder();
+                break;
+            }
+            case 61:{
+                table61Seat2Order.clearOrder();
+                break;
+            }
+            
+        }
+          }
+          if(seat3.isSelected()){
+              switch(currentTable.getId()){
+            case 10:{
+                 table10Seat3Order.clearOrder();
+                break;
+            }
+            case 20:{
+                 table20Seat3Order.clearOrder();
+                break;
+            }
+            case 30:{
+                table30Seat3Order.clearOrder();
+                break;
+            }
+            case 40:{
+                 table40Seat3Order.clearOrder();
+                break;
+            }
+            case 50:{
+                table50Seat3Order.clearOrder();
+                break;
+            }
+            case 60:{
+                table60Seat3Order.clearOrder();
+                break;
+            }
+            case 61:{
+                table61Seat3Order.clearOrder();
+                break;
+            }
+            
+        }
+          }
+          if(seat4.isSelected()){
+              switch(currentTable.getId()){
+            case 10:{
+                 table10Seat4Order.clearOrder();
+                break;
+            }
+            case 20:{
+                 table20Seat4Order.clearOrder();
+                break;
+            }
+            case 30:{
+                table30Seat4Order.clearOrder();
+                break;
+            }
+            case 40:{
+                 table40Seat4Order.clearOrder();
+                break;
+            }
+            case 50:{
+                table50Seat4Order.clearOrder();
+                break;
+            }
+            case 60:{
+                table60Seat4Order.clearOrder();
+                break;
+            }
+            case 61:{
+                table61Seat4Order.clearOrder();
+                break;
+            }
+            
+        }
+          }
+          if(allSeat.isSelected()){
+              switch(currentTable.getId()){
+            case 10:{
+                 table10Seat1Order.clearOrder();
+                 table10Seat2Order.clearOrder();
+                 table10Seat3Order.clearOrder();
+                 table10Seat4Order.clearOrder();
+                break;
+            }
+            case 20:{
+                 table20Seat1Order.clearOrder();
+                 table20Seat2Order.clearOrder();
+                 table20Seat3Order.clearOrder();
+                 table20Seat4Order.clearOrder();
+                break;
+            }
+            case 30:{
+                table30Seat1Order.clearOrder();
+                 table30Seat2Order.clearOrder();
+                 table30Seat3Order.clearOrder();
+                 table30Seat4Order.clearOrder();
+                break;
+            }
+            case 40:{
+                 table40Seat1Order.clearOrder();
+                 table40Seat2Order.clearOrder();
+                 table40Seat3Order.clearOrder();
+                 table40Seat4Order.clearOrder();
+                break;
+            }
+            case 50:{
+                table50Seat1Order.clearOrder();
+                 table50Seat2Order.clearOrder();
+                 table50Seat3Order.clearOrder();
+                 table50Seat4Order.clearOrder();
+                break;
+            }
+            case 60:{
+                table20Seat1Order.clearOrder();
+                 table20Seat2Order.clearOrder();
+                 table20Seat3Order.clearOrder();
+                 table20Seat4Order.clearOrder();
+                break;
+            }
+            case 61:{
+                table61Seat1Order.clearOrder();
+                 table61Seat2Order.clearOrder();
+                 table61Seat3Order.clearOrder();
+                 table61Seat4Order.clearOrder();
+                break;
+            }
+            
+        }
+          }
+        mainPanel.removeAll();
+        mainPanel.add(Order);
+        mainPanel.repaint();
+        mainPanel.revalidate();
+        orderModel.clear();
+    }//GEN-LAST:event_cashOutBtnActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
     
     public static ArrayList<Food> initFoodList(int list){
         
@@ -2262,12 +2940,14 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            /*for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
+            */
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(POS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -2358,6 +3038,7 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
     private javax.swing.JButton cardAccept;
     private javax.swing.JButton cardCancel;
     private javax.swing.JLabel cardPayment;
+    private javax.swing.JButton cashOutBtn;
     private javax.swing.JLabel change;
     private javax.swing.JLabel changeDue;
     private javax.swing.JPanel creditCard;
@@ -2375,6 +3056,13 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
     private javax.swing.JPanel entrees;
     private javax.swing.JButton exitTables;
     private javax.swing.JTextField input;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList10;
     private javax.swing.JList<String> jList8;
@@ -2391,6 +3079,7 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
     private javax.swing.JTextField payIn;
     private javax.swing.JPanel payInCash;
     private javax.swing.JList<String> paymentList;
+    private javax.swing.JButton returnBtn;
     private javax.swing.JButton runReport;
     private javax.swing.JToggleButton s1;
     private javax.swing.JToggleButton s2;
@@ -2407,6 +3096,7 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
     private javax.swing.JToggleButton seat3;
     private javax.swing.JToggleButton seat4;
     private javax.swing.JPanel seatPayment;
+    private javax.swing.JLabel tableNameLabel;
     private javax.swing.JButton tbl10;
     private javax.swing.JButton tbl20;
     private javax.swing.JButton tbl30;
@@ -2419,6 +3109,7 @@ public static Order currentOrderFinal = new Order(1,emptyList,1);
     private javax.swing.JLabel totalCardPayment;
     private javax.swing.JLabel totalPayment;
     private javax.swing.JPanel upcharge;
+    private javax.swing.JLabel waiterNameLabel;
     // End of variables declaration//GEN-END:variables
  
 }
